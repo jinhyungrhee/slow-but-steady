@@ -19,6 +19,8 @@
     
     - Chaining
 
+***
+
 ## 트리구조
 
 * 이진트리(Binary tree)
