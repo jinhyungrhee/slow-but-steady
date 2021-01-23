@@ -31,14 +31,14 @@
 * 이진트리(Binary tree)
     : 자식노드가 없거나 하나거나 두개인 트리. 가장 간단하면서도 많이 쓰임.
     
-    - 표현법1:
+    - 표현법1:  
     A = [a, b, c, None, d, e, f]
 
-    - 표현법2:
-    A = [a, [a의 왼쪽 sub tree], [a의 오른쪽 sub tree]]
+    - 표현법2:  
+    A = [a, [a의 왼쪽 sub tree], [a의 오른쪽 sub tree]]  
       = [a, [b, [], [d, [], []]], [c, [e, [], []], [f, [], []]] 
 
-    - 표현법3:
+    - 표현법3:  
     노드 class 직접 정의(key, left, right, parent... 최소 4개의 멤버로 정의)
 
 * 힙(Heap)
@@ -53,7 +53,8 @@
         - make_heap : O(n) or O(nlogN) => insert를 n번 하는 경우
         - heapify_down : O(h) = O(logN)
         - heapify_up : O(h) = O(logN)
-        - heap_sort : O(nlogN)
+        - heap_sort : O(nlogN)  
+        
 
     > 특정 값을 insert하고 가장 큰 값을 찾거나 가장 큰 값을 지우는 연산이 필요한 어플리케이션에 적절.  
       search함수가 필요한 어플리케이션에는 부적절.
