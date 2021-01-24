@@ -1,16 +1,13 @@
 ## 순차적 자료구조
 
-* 배열(py-리스트)
-    - index로 임의의 원소를 접근
+* 배열(py-리스트) : index로 임의의 원소를 접근
 
-* Stack, Queue, Dequeue
-    - 제한된 접근(삽입, 삭제)만 허용
+* Stack, Queue, Dequeue : 제한된 접근(삽입, 삭제)만 허용
     - Stack : LIFO (Last In First Out)
     - Queue : FIFO (First In First Out)
     - Dequeue : Stack + Queue
 
-* 연결리스트
-    : 연속되지 않은 메모리공간에 독립적으로 저장. 인덱스 접근 X
+* 연결리스트 : 연속되지 않은 메모리공간에 독립적으로 저장. 인덱스 접근 X
 
     - 한방향 연결리스트(Singly Linked List)
     - 양방향 연결리스트(Doubly Linked List)
