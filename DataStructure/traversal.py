@@ -19,13 +19,13 @@ class Tree:
             self.preorder(v.left)
             self.preorder(v.right)
 
-    def inorder(self, v):
+    def inorder(self, v): # LMR
         if v != None:
             self.inorder(v.left)
             print(v.key)
             self.inorder(v.right)
 
-    def postorder(self,v):
+    def postorder(self,v): # LRM
         if v != None:
             self.postorder(v.left)
             self.postorder(v.right)
