@@ -48,6 +48,12 @@
     - 표현법3:  
     노드 class 직접 정의(key, left, right, parent... 최소 4개의 멤버로 정의)
 
+    - 이진트리 순회(traversal)  
+    : 이진트리 노드의 key값을 빠짐없이 출력하는 방법
+        - preorder : MLR
+        - inorder : LMR
+        - postorder : LRM
+
 * 힙(Heap)
     - 힙 정의: '힙 성질(Heap property)'과 '모양성질'을 만족하는 이진트리
         - 힙 성질: 모든 부모노드의 key값은 자식노드의 key값보다 작지 않다.(크거나 같아야 한다.) => max_heap
@@ -66,5 +72,24 @@
     > 특정 값을 insert하고 가장 큰 값을 찾거나 가장 큰 값을 지우는 연산이 필요한 어플리케이션에 적절.  
       search함수가 필요한 어플리케이션에는 부적절.
     
+* 이진탐색트리(Binary Search Tree, BST)  
+    : search를 더 효율적으로 할 수 있도록 잘 조직화된 tree
+    - 각 노드의 **왼쪽 sub tree의 key값**은 노드의 key값보다 작거나 같아야 하고
+    - 각 노드의 **오른쪽 sub tree의 key값**은 노드의 key값보다 커야 한다.
+      
+    - 이진탐색트리의 연산
+        -insert => **O(h)**
+        -search(=find_loc) => **O(h)**
+        -deleteByMerging => **O(h)**
+        -deleteByCopying => **O(h)**
+
+* 균형이진탐색트리(Balanced BST)  
+    : 가능한 한 높이(h)를 작게 유지하도록 강제하는 바이너리 트리. 일반 BST에서는 높이가 커질수록 연산속도가 비례해서 커지기 때문!
+    
+    - 종류:
+        - AVL트리 : 모든 노드에 대해서 노드의 왼쪽 sub tree와 오른쪽 sub tree의 높이 차이가 1 이하인 BST
+        - Red-Black트리
+        - 2-3-4트리
+        - splay트리
 
 
