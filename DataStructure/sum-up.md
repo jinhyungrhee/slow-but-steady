@@ -78,10 +78,10 @@
     - 각 노드의 **오른쪽 sub tree의 key값**은 노드의 key값보다 커야 한다.
       
     - 이진탐색트리의 연산
-        -insert => **O(h)**
-        -search(=find_loc) => **O(h)**
-        -deleteByMerging => **O(h)**
-        -deleteByCopying => **O(h)**
+        -insert => **O(h)**  
+        -search(=find_loc) => **O(h)**  
+        -deleteByMerging => **O(h)**  
+        -deleteByCopying => **O(h)**  
 
 * 균형이진탐색트리(Balanced BST)  
     : 가능한 한 높이(h)를 작게 유지하도록 강제하는 바이너리 트리. 일반 BST에서는 높이가 커질수록 연산속도가 비례해서 커지기 때문!
