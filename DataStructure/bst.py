@@ -4,6 +4,7 @@ class Node:
         self.parent = parent
         self.left = left
         self.right = right
+        self.height = 0
 
     def __str__(self):
         return str(self.key)
@@ -86,14 +87,22 @@ class BST:
 #    def deleteByMerging 
 #    def deleteByCopying
 
+class AVL(BST): # BST클래스를 부모 클래스로 지정
+    # BST 클래스의 멤버, 메소드 상속받아 사용 가능
+    # __init__가 없다면 부모 클래스 __init__함수 자동 호출
+
+    def insert(self, key): # AVL 클래스의 search함수
+        v = super(AVL, self).insert(key)
+
+
 T = BST()
-T.insert(15)
-T.insert(4)
-print(T.__len__())
-T.insert(7)
-print(T.__len__())
-#print(T.__iter__())
-print(T.search(15))
+T.insert(5)
 T.insert(2)
-T.insert(6)
-print(T.__len__())
+T.insert(1)
+T.insert(10)
+
+T.preorder(T.root)  #MLR
+print()
+T.inorder(T.root)   #LMR
+print()
+T.postorder(T.root) #LRM
