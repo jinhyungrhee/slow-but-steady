@@ -143,10 +143,10 @@
 * 그래프 순회(Graph Traversal)
     1. DFS(깊이우선탐색, Depth First Search):
         - 가장 깊은 곳까지 내려가서 올라갔다 내려갔다를 반복하는 탐색 방법
-        - 구현: # pre_time, post_time, parent 리스트 사용
+        - 구현 : (pre_time, post_time, parent 리스트 사용)
             1. 재귀적방법 
             2. 비재귀적방법 => stack 사용  
-        - **DFS를 해서 post_time이 가장 큰 순서대로 나열하면 *DAG*의 topological sorting(위상정렬) 중 하나가 됨**
+        - **DFS를 해서 post_time이 가장 큰 순서대로 나열하면 *DAG*의 topological sorting(위상정렬) 중 하나가 됨**  
             *DAG(Directed Acyclic Graph) : 사이클이 없는 방향 그래프*
     
     2. BFS(너비우선탐색, Breadth First Search):
