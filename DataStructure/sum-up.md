@@ -145,9 +145,10 @@
         - 가장 깊은 곳까지 내려가서 올라갔다 내려갔다를 반복하는 탐색 방법
         - 구현 : (pre_time, post_time, parent 리스트 사용)
             1. 재귀적방법 
-            2. 비재귀적방법 => stack 사용  
+            2. 비재귀적방법 => stack 자료구조 사용  
         - **DFS를 해서 post_time이 가장 큰 순서대로 나열하면 *DAG*의 topological sorting(위상정렬) 중 하나가 됨**  
             *DAG(Directed Acyclic Graph) : 사이클이 없는 방향 그래프*
     
     2. BFS(너비우선탐색, Breadth First Search):
-        - level단위로 노드들을 방문하는 탐색 방법
+        - 루트노드->루트노드의 이웃노드들->이웃노드들의 이웃노드들->... 순서로 'level-by-level'로 방문하는 방법
+        - queue 자료구조를 사용하고 비재귀 코드로 작성하는 것이 일반적
