@@ -140,3 +140,14 @@
                 에지의 검색, 삽입, 삭제 연산을 할 때 O(n)시간이 걸린다.  
                 **but** '인접리스트'에서는 인접한 다른 노드들의 순서가 중요하지 않기 때문에 새 노드(에지)를 삽입 시 정렬을 할 필요가 없다. 따라서 에지 삽입 연산을 할 때 'python 리스트'를 사용하고 pushFront 대신 'append'를 사용하면 더 빠르게 연산이 가능하다. 
 
+* 그래프 순회(Graph Traversal)
+    1. DFS(깊이우선탐색, Depth First Search):
+        - 가장 깊은 곳까지 내려가서 올라갔다 내려갔다를 반복하는 탐색 방법
+        - 구현: # pre_time, post_time, parent 리스트 사용
+            1. 재귀적방법 
+            2. 비재귀적방법 => stack 사용  
+        - **DFS를 해서 post_time이 가장 큰 순서대로 나열하면 *DAG*의 topological sorting(위상정렬) 중 하나가 됨**
+            *DAG(Directed Acyclic Graph) : 사이클이 없는 방향 그래프*
+    
+    2. BFS(너비우선탐색, Breadth First Search):
+        - level단위로 노드들을 방문하는 탐색 방법
