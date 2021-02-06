@@ -161,5 +161,5 @@
                     if dist[v] > dist[u] + w(u,v):
                         dist[v] = dist[u] + w(u,v) # relax(u,v)
             ```  
-            - 수행시간: (n-1) X E = O(nE) = O(n^3) *# E는 에지의 개수. 에지의 개수는 최대 n^2까지 가능*  
+            수행시간: (n-1) X E = O(nE) = O(n^3) *# E는 에지의 개수. 에지의 개수는 최대 n^2까지 가능*   
         - Dijkstra Alogrithm
