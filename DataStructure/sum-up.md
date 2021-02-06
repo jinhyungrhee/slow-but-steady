@@ -152,3 +152,14 @@
     2. BFS(너비우선탐색, Breadth First Search):
         - 루트노드->루트노드의 이웃노드들->이웃노드들의 이웃노드들->... 순서로 'level-by-level'로 방문하는 방법
         - queue 자료구조를 사용하고 비재귀 코드로 작성하는 것이 일반적
+
+    3. 최단경로 문제
+        - Bellman-Ford Algorithm:  
+            ```py
+            for i in range(n-1): # n-1 round
+                for each edge(u,v) in G:
+                    if dist[v] > dist[u] + w(u,v):
+                        dist[v] = dist[u] + w(u,v) # relax(u,v)
+            ```  
+            - 수행시간: (n-1) X E = O(nE) = O(n^3) *# E는 에지의 개수. 에지의 개수는 최대 n^2까지 가능*  
+        - Dijkstra Alogrithm
