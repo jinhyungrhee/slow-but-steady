@@ -60,13 +60,13 @@
         - 모양 성질: level별로 노드가 전부 꽉 차있고 마지막 level만 왼쪽부터 채워져 있는 상태
     
     - 제공 연산:
-        - insert : O(logN)
+        - insert : O(logn)
         - find_max : O(1)
         - delete_max : O(1)
-        - make_heap : O(n) or O(nlogN) => insert를 n번 하는 경우
-        - heapify_down : O(h) = O(logN)
-        - heapify_up : O(h) = O(logN)
-        - heap_sort : O(nlogN)  
+        - make_heap : O(n) or O(nlogn) => insert를 n번 하는 경우
+        - heapify_down : O(h) = O(logn)
+        - heapify_up : O(h) = O(logn)
+        - heap_sort : O(nlogn)  
         
 
     > 특정 값을 insert하고 가장 큰 값을 찾거나 가장 큰 값을 지우는 연산이 필요한 어플리케이션에 적절.  
@@ -161,5 +161,15 @@
                     if dist[v] > dist[u] + w(u,v):
                         dist[v] = dist[u] + w(u,v) # relax(u,v)
             ```  
-            수행시간: (n-1) X E = O(nE) = O(n^3) *# E는 에지의 개수. 에지의 개수는 최대 n^2까지 가능*   
-        - Dijkstra Alogrithm
+            - 수행시간: (n-1) X E = O(nE) = O(n^3) *# E는 에지의 개수. 에지의 개수는 최대 n^2까지 가능*   
+        - Dijkstra Alogrithm: (binary heap 자료구조 사용)  
+            ```py
+            Q = min_heap with dist[v] as keys   # 모든 노드 Q에 insert
+            while Q != None:
+                u = Q.deleteMin()   # minimum dist값을 갖는 node를 선택해서 꺼냄
+                for each u -> v:    # 아직 방문하지 않은 인접한 에지들을 전부 relax함
+                    relax(u,v)
+                    Q.decreaseKey(v, dist[v])   # 변경된 key값에 해당하는 heap위치로 재배치(heapyfi_up 사용)
+            ```
+            - 수행시간: 각 노드(O(nlogn)) + 각 에지(O(n^2logn)) = O(n^2logn)
+            - 조금 더 복잡한 **Fibonacci Heap 자료구조**를 사용하면 decreaseKey연산을 상수 시간 내에 사용가능하므로 총 **O(n^2)시간**이 걸림(더 빠르게 사용 가능)
