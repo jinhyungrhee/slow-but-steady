@@ -162,7 +162,7 @@
                         dist[v] = dist[u] + w(u,v) # relax(u,v)
             ```  
             - 수행시간: (n-1) X E = O(nE) = **O(n^3)**
-            - *# E는 에지의 개수. 에지의 개수는 최대 n^2까지 가능*  
+            - *E는 에지의 개수. 에지의 개수는 최대 n^2까지 가능*  
         - Dijkstra Alogrithm: (binary heap 자료구조 사용)  
             ```py
             Q = min_heap with dist[v] as keys   # 모든 노드 Q에 insert
