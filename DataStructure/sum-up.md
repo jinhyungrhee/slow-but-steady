@@ -195,11 +195,11 @@
                 - 수행시간: 각 노드(O(nlogn)) + 각 에지(O(n^2logn)) = **O(n^2logn)**
                 - 조금 더 복잡한 **Fibonacci Heap 자료구조**를 사용하면 decreaseKey연산을 상수 시간 내에 사용가능하므로 총 **O(n^2)시간**이 걸림(더 빠르게 사용 가능)  
 
-        2. *All-to-All* Shortest Path Problem
-                - 방법1: 모든 노드에 대해 Dijkstra 알고리즘 실행 => **O(n^3logn)**  
+        2. *All-to-All* Shortest Path Problem  
+            - 방법1: 모든 노드에 대해 Dijkstra 알고리즘 실행 => **O(n^3logn)**  
                 (= 소스노드에서 모든 다른 노드로 가는 알고리즘을 소스노드를 다 바꾸어가면서 n번 호출)  
 
-                - 방법2: **DP방법(Floyd-Warshall 알고리즘)**  
+            - 방법2: **DP방법(Floyd-Warshall 알고리즘)**  
                 *DP(Dynamic Programming, 동적 프로그래밍): 복잡한 문제를 여러 개의 문제로 나누어 푸는 방법*
             
             
