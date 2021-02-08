@@ -155,51 +155,51 @@
 
     3. 최단경로 문제
         1. *Single Source* Shortest Path Problem  
-        - Bellman-Ford Algorithm:  
-            ```py
-            for i in range(n-1): # n-1 round
-                for each edge(u,v) in G:
-                    if dist[v] > dist[u] + w(u,v):
-                        dist[v] = dist[u] + w(u,v) # relax(u,v)
-            ```  
-            - 수행시간: (n-1) X E = O(nE) = **O(n^3)**
-            - *E는 에지의 개수. 에지의 개수는 최대 n^2까지 가능*  
-        - Dijkstra Alogrithm: (binary heap 자료구조 사용)  
-            ```py
-            Q = min_heap with dist[v] as keys   # 모든 노드 Q에 insert
-            while Q != None:
-                u = Q.deleteMin()   # minimum dist값을 갖는 node를 선택해서 꺼냄
-                for each u -> v:    # 아직 방문하지 않은 인접한 에지들을 전부 relax함
-                    relax(u,v)
-                    Q.decreaseKey(v, dist[v])   # 변경된 key값에 해당하는 heap위치로 재배치(heapyfi_up 사용)
-            ```
+            - Bellman-Ford Algorithm:  
+                ```py
+                for i in range(n-1): # n-1 round
+                    for each edge(u,v) in G:
+                        if dist[v] > dist[u] + w(u,v):
+                            dist[v] = dist[u] + w(u,v) # relax(u,v)
+                ```  
+                - 수행시간: (n-1) X E = O(nE) = **O(n^3)**
+                - *E는 에지의 개수. 에지의 개수는 최대 n^2까지 가능*  
+            - Dijkstra Alogrithm: (binary heap 자료구조 사용)  
+                ```py
+                Q = min_heap with dist[v] as keys   # 모든 노드 Q에 insert
+                while Q != None:
+                    u = Q.deleteMin()   # minimum dist값을 갖는 node를 선택해서 꺼냄
+                    for each u -> v:    # 아직 방문하지 않은 인접한 에지들을 전부 relax함
+                        relax(u,v)
+                        Q.decreaseKey(v, dist[v])   # 변경된 key값에 해당하는 heap위치로 재배치(heapyfi_up 사용)
+                ```
 
-            ```py
-            def Dijkstra(G):
-                n, m = numbers of nodes and edges of G
-                s = source node, simply 0
-                d = [0, inf, ..., inf]
-                parent = [0, NULL, ..., NULL]
-                H = make_heap(nodes v of G with key d[v])
-                while len(H): # n iterations
-                    u = H.deleteMin()
-                    for each v adjacent to u : # m edges are scanned in total
-                        if (u, v) is an edge of G:
-                           if d[u] + cost(u, v) < d[v]: # relax(u, v)
-                               d[v] = d[u] + cost(u, v)
-                               parent[v] = u
-                               H.decreaseKey(v, d[v])
-                return dist, parent
-            ```  
+                ```py
+                def Dijkstra(G):
+                    n, m = numbers of nodes and edges of G
+                    s = source node, simply 0
+                    d = [0, inf, ..., inf]
+                    parent = [0, NULL, ..., NULL]
+                    H = make_heap(nodes v of G with key d[v])
+                    while len(H): # n iterations
+                        u = H.deleteMin()
+                        for each v adjacent to u : # m edges are scanned in total
+                            if (u, v) is an edge of G:
+                            if d[u] + cost(u, v) < d[v]: # relax(u, v)
+                                d[v] = d[u] + cost(u, v)
+                                parent[v] = u
+                                H.decreaseKey(v, d[v])
+                    return dist, parent
+                ```  
 
-            - 수행시간: 각 노드(O(nlogn)) + 각 에지(O(n^2logn)) = **O(n^2logn)**
-            - 조금 더 복잡한 **Fibonacci Heap 자료구조**를 사용하면 decreaseKey연산을 상수 시간 내에 사용가능하므로 총 **O(n^2)시간**이 걸림(더 빠르게 사용 가능)  
+                - 수행시간: 각 노드(O(nlogn)) + 각 에지(O(n^2logn)) = **O(n^2logn)**
+                - 조금 더 복잡한 **Fibonacci Heap 자료구조**를 사용하면 decreaseKey연산을 상수 시간 내에 사용가능하므로 총 **O(n^2)시간**이 걸림(더 빠르게 사용 가능)  
 
         2. *All-to-All* Shortest Path Problem
-            - 방법1: 모든 노드에 대해 Dijkstra 알고리즘 실행 => **O(n^3logn)**  
-            (= 소스노드에서 모든 다른 노드로 가는 알고리즘을 소스노드를 다 바꾸어가면서 n번 호출)  
+                - 방법1: 모든 노드에 대해 Dijkstra 알고리즘 실행 => **O(n^3logn)**  
+                (= 소스노드에서 모든 다른 노드로 가는 알고리즘을 소스노드를 다 바꾸어가면서 n번 호출)  
 
-            - 방법2: **DP방법(Floyd-Warshall 알고리즘)**
-            *DP(Dynamic Programming, 동적 프로그래밍): 복잡한 문제를 여러 개의 문제로 나누어 푸는 방법*
+                - 방법2: **DP방법(Floyd-Warshall 알고리즘)**  
+                *DP(Dynamic Programming, 동적 프로그래밍): 복잡한 문제를 여러 개의 문제로 나누어 푸는 방법*
             
             
