@@ -12,23 +12,17 @@ class Stack:
             print("Stack is empty")
     
     def top(self):
-        try:
+        try:                        # 가장 상위 아이템 호출
             return self.items[-1]
-        except IndexError:
+        except IndexError:          # 없으면 IndexError 발생
             print("Stack is empty")
         
     def __len__(self):          # len()로 호출하면 stack의 item수 반환
         return len(self.items)
     
     def isEmpty(self):
-        return len(self) == 0
+        return self.__len__() == 0
 
 S = Stack()
-S.push(10)
-S.push(2)
-print(S.top())
-print(len(S))
-print(S.pop())
-print(len(S))
 print(S.isEmpty())
-print(S.top())
+print(S.__len__())
