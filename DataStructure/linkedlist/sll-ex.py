@@ -92,9 +92,10 @@ class SinglyLinkedList:
             del x
             self.size -= 1
             return True
-    
+    '''
     def size(self):
         return self.size
+    '''
 
 L = SinglyLinkedList()
 while True:
