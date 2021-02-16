@@ -42,10 +42,10 @@ for line in open("myfile.txt"):
 ```  
 
 - iterator 객체 생성과 사용:
-    1. 주어진 컨테이너 객체에 대해 **iter()**메소드를 호출해서 이터레이터 객체를 구현함.
-    2. 객체 내부의 요소를 하나씩 가져오기 위해서 **__next__()**메소드를 호출함. (이 메소드는 하나의 요소를 반환하고 다음 요소르 가리킴)
-    3. 더 이상 가져올게 없으면 **StopIteration 예외**를 발생시킴.
-    - 이터레이터에 대해서 다음 요소를 직접 가져오기 위해 내장 함수인 **next()**를 사용할 수 있음.
+    1. 주어진 컨테이너 객체에 대해 ```iter()```메소드를 호출해서 이터레이터 객체를 구현함.
+    2. 객체 내부의 요소를 하나씩 가져오기 위해서 ```__next__()```메소드를 호출함. (이 메소드는 하나의 요소를 반환하고 다음 요소르 가리킴)
+    3. 더 이상 가져올게 없으면 ```StopIteration``` 예외를 발생시킴.
+    - 이터레이터에 대해서 다음 요소를 직접 가져오기 위해 내장 함수인 ```next()```를 사용할 수 있음.
 
     ```py
     s = 'abc'
@@ -64,18 +64,37 @@ for line in open("myfile.txt"):
     print(next(it)) # StopIteration
     ```  
 
+- Reverse Iterator:
+```py
+class Reverse:
+    def __init__(self, data):
+        self.data = data
+        self.index = len(data)
+    def __iter__(self): # 문자열 자체가 iterable이므로 그냥 리턴
+        return self
+    def __next__(self):
+        if self.index == 0:
+            raise StopIteration # raise - 오류 강제 발생시킬 때 사용
+        self.index = self.index - 1
+        return self.data[self.index]
+
+rev = Reverse('spam')
+for c in rev:
+    print(c, end="") # 출력 결과: maps
+```
+
 # 제너레이터(Generator)
 
-- 이터레이터(Iterator)를 만드는 간단하고 강력한 도구.
-- 일반적인 함수처럼 작성되지만 데이터를 반한하기 위해 return 대신 **yield** 사용.
+- 이터레이터(Iterator)를 만들 수 있는 **훨씬 간단**하고 **직관적인** 방법.
+- 일반적인 함수처럼 작성되지만 데이터를 반한하기 위해 return 대신 ```yield``` 사용.
 - 매번 next()메서드가 호출될 때마다 제너레이터는 **중단된 지점부터 다시 시작**함.(**모든 데이터 값과 마지막 실행된 명령문을 기억함**)
 - 즉, return의 경우엔 값이 반환될 때마다 내부 지역변수들이 사라지지만  
-  **yield**의 경우, **내부 값들이 보존**됨.
+  ```yield```의 경우, **내부 값들이 보존**됨.
 - 리소스에 대한 제어가 필요할 때 매우 유용하게 사용됨!
 
 - 제너레이터 사용 예시:
 ```py
-class Reverse:
+class Reverse: # Reverse generator
     def __init__(self, data):
         self.data = data
         self.index = len(data)
