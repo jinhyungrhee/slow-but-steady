@@ -1,5 +1,7 @@
 '''
-빈칸 구현
+HashChaining 클래스의 메소드 구현 시 한방향 리스트(H)를 이용해야 함!
+i = self.find_slot(key)    # 몇 번째 슬롯인지
+v = self.H[i].search(key)  # 해당 슬롯의 한방향 리스트에 key값을 가진 노드가 있는지  
 '''
 
 class Node:
@@ -71,21 +73,34 @@ class HashChaining:
             yield self.H[i]
 
     def hash_function(self, key):
-        return key % self.size
+        return key % self.size # return hash value for key
 
-    def find_slot(self, key):
+    def find_slot(self, key): # chainig이므로 빈 슬롯을 찾을 필요 없이 해시함수 값 리턴!
         return self.hash_function(key)
 
     def set(self, key, value=None):
-        #...
+        i = self.find_slot(key) # 몇 번째(i) 슬롯에 들어갈지 찾음.
+        v = self.H[i].search(key) # 찾은 슬롯에 key 값을 가진 노드가 있는지 검색
+        if v == None: # key값을 갖는 노드가 없다면 "삽입연산"
+            self.H[i].pushFront(key, value) # (key, value)노드를 head노드 위치에 삽입!
+        else: # key값을 갖는 노드가 있으므로 "value값 수정"
+            v.value = value
 
     def remove(self, key):
-        #...
+        i = self.find_slot(key) # 몇 번째(i) 슬롯에 있는지 찾음
+        v = self.H[i].search(key) # 해당 슬롯에 key 값을 가진 노드가 있는지 검색
+        if v == None: return None # key값을 갖는 노드가 없다면 None 리턴
+        else: # key값을 갖는 노드가 있다면
+            return self.H[i].remove(v) # 삭제 연산 후 해당 key값 리턴
 
     def search(self, key):
-        #...
+        i = self.find_slot(key) # 몇 번째(i) 슬롯에 있는지 찾음
+        v = self.H[i].search(key) # 해당 슬롯에 key값을 가진 노드가 있는지 검색
+        if v == None: return None # 없으면 None 리턴
+        else:
+            return key # 있으면 key값 리턴
 
-H = HahsChaining(10)
+H = HashChaining(10)
 while True:
     cmd = input().split()
     if cmd[0] == 'set':
