@@ -1,5 +1,6 @@
 '''
-Singly Linked List 연산 구현 실습 -> 2/5, remove()부분 다시 보기
+Singly Linked List 연산 구현 실습
+빈 리스트 -> self.head == None
 '''
 
 class Node:
@@ -77,21 +78,22 @@ class SinglyLinkedList:
             v = v.next
         return v # or return None (v가 None이 되어야 while문 빠져나오기 때문에 결국 같은 의미)
 
-    def remove(self, x): # 노드 x를 제거한 후 True리턴. 제거 실패면 False리턴.
-        if len(self) == 0: # <<경우 1: 빈 리스트면 제거 실패 -> False 리턴>>
-            return False
-        elif self.head.key == x.key: # <<경우 2: 노드가 하나 밖에 없으면 popFront호출>>
-            self.popFront()
-            return True
+    def remove(self, x): # 노드 x를 제거한 후 key값 리턴. 제거 실패면 None 리턴. (**중요**)
+        if x == None or self.head == None: # <<경우 1: 찾는 노드가 없거나 빈 리스트면 제거 실패 -> None 리턴>> 
+            return None
+        key = x.key
+        if x == self.head: # <<경우 2: 노드가 하나 밖에 없으면 popFront호출>>
+            return self.popFront()
         else: # <<경우 3: 노드가 2개 이상인 경우>>
             prev, tail = None, self.head
-            while tail.key != x.key: # tail노드 key와 찾는 노드의 key가 같을 때까지 탐색
+            while tail != None and  tail != x: # tail노드 key와 찾는 노드의 key가 같을 때까지 탐색
                 prev = tail
-                tail = tail.next
-            prev.next = tail.next # tail노드와 찾는 노드가 같으면 while 문을 빠져나와 앞-뒤 노드 연결
+                tail = tail.next               # tail이 None이 아니면서 찾는 노드의 key와 같아지면 while문 탈출
+            if tail == x: # tail이 찾는 노드가 맞다면 (***if문 처리 중요!***)
+                prev.next = tail.next # 제거를 위해 앞-뒤 노드 연결
             del x
             self.size -= 1
-            return True
+            return key
     '''
     def size(self):
         return self.size
