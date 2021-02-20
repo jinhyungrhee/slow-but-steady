@@ -74,7 +74,7 @@ class Tree:
             self.size += 1
             return v # 새로 삽입된 노드 리턴 => 다른 연산에 사용!
         else: # <2>: 찾는 값이 있음 -> None 리턴
-            return p # find_loc에서 값이 없으면 None
+            return None # find_loc에서 값이 없으면 None
 
 T = Tree()
 
@@ -85,7 +85,7 @@ while True:
         if v != None:
             print("+ {0} is set into H".format(v.key))
         else:
-            print(key, "is already in the tree!")
+            print("* {0} is already in the tree!".format(int(cmd[1])))
     elif cmd[0] == 'search':
         v = T.search(int(cmd[1]))
         if v == None: print("* {0} is not found!".format(cmd[1]))
