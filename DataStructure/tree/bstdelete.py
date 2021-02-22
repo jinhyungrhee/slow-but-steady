@@ -101,8 +101,9 @@ class Tree:
                 c.parent = None # root노드의 parent는 None 
         self.size += 1
         
-
     def deleteByCopying(self, x):
+        pass
+
 
 T = Tree()
 
@@ -111,3 +112,28 @@ while True:
     if cmd[0] == 'insert':
         v = T.insert(int(cmd[1]))
         print("+ {0} is inserted".format(v.key))
+    elif cmd[0] == 'deleteC':
+        v = T.search(int(cmd[1]))
+        T.deleteByCopying(v)
+        print("- {0} is deleted by copying".format(int(cmd[1])))
+    elif cmd[0] == 'deleteM':
+        v = T.search(int(cmd[1]))
+        T.deleteByMerging(v)
+        print("- {0} is deleted by copying".format(int(cmd[1])))
+    elif cmd[0] == 'search':
+        v = T.search(int(cmd[1]))
+        if v == None: print("* {0} is not found!".format(cmd[1]))
+        else: print("* {0} is found!".format(cmd[1]))
+    elif cmd[0] == 'preorder':
+        T.preorder(T.root)
+        print()
+    elif cmd[0] == 'postorder':
+        T.postorder(T.root)
+        print()
+    elif cmd[0] == 'inorder':
+        T.inorder(T.root)
+        print()
+    elif cmd[0] == 'exit':
+        break
+    else:
+        print("* not allowed command. enter a proper command!")
