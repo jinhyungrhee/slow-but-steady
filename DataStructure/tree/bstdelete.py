@@ -82,12 +82,13 @@ class Tree:
             c = a
             m = a # m 찾기
             while m.right: # None이 아닌 동안
-                m = right
+                m = m.right
             if b != None:
                 b.parent = m
                 m.right = b
         else: # a == None
             c = b
+
         if pt != None: # <경우2>: 지우려는 x가 root노드냐 아니냐
             if c: # c가 None이 아니여야만 c.parent가 존재***
                c.parent = pt
@@ -99,7 +100,30 @@ class Tree:
             self.root = c
             if c: # c가 None이 아니여야만 c.parent가 존재***
                 c.parent = None # root노드의 parent는 None 
-        self.size += 1
+        self.size -= 1
+
+    '''비교
+    def deleteByMerging(self, x):
+        # assume that x is not None
+        a, b, pt = x.left, x.right, x.parent
+        if a == None: c = b
+        else: # a != None
+            c = m = a
+            # find the largest leaf m in the subtree of a
+            while m.right:
+                m = m.right
+            m.right = b
+            if b: b.parent = m
+
+        if self.root == x: # c becomes a new root
+            if c: c.parent = None
+            self.root = c
+        else: # c becomes a child of pt of x
+            if pt.left == x: pt.left = c
+            else: pt.right = c
+            if c: c.parent = pt
+        self.size -= 1
+    '''
         
     def deleteByCopying(self, x):
         pass
