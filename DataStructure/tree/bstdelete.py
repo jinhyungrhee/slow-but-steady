@@ -76,22 +76,22 @@ class Tree:
         a = x.left
         b = x.right
         pt = x.parent
-        # c = x 자리를 대체할 노드
-        # m = 왼쪽 트리(L)에서 가장 큰 노드
         if a != None: # <경우1>: a노드(L트리의 루트노드)가 있느냐 없느냐
-            c = a
-            m = a # m 찾기
-            while m.right: # None이 아닌 동안
+            c = a # c = x 자리를 대체할 노드 -> L트리가 있으면 a가 x자리 대체 ***
+            m = a # m = 왼쪽 트리(L)에서 가장 큰 노드 -> m 찾기
+            while m.right: # m.right이 None이 나오면 leaf노드에 도달
                 m = m.right
-            if b != None:
-                b.parent = m
+            if b != None: # b노드(R트리의 루트노드)가 있으면 m노드의 자식으로 들어옴
+                b.parent = m 
                 m.right = b
-        else: # a == None
-            c = b
+        else: # a == None (왼쪽 서브트리가 없으면)
+            c = b # b노드(오른쪽 서브트리의 루트노드)가 x자리 대체 ***
 
-        if pt != None: # <경우2>: 지우려는 x가 root노드냐 아니냐
+        # x.parent와 x를 대체할 a 또는 c의 링크 연결!
+        # <경우2>: 삭제할 노드 x가 T.root인 경우와 아닌 경우
+        if pt != None: 
             if c: # c가 None이 아니여야만 c.parent가 존재***
-               c.parent = pt
+               c.parent = pt # 새로운 노드의 부모를 x의 parent로 연결
             if pt.key < c.key:
                 pt.right = c
             else:
@@ -115,6 +115,7 @@ class Tree:
             m.right = b
             if b: b.parent = m
 
+        # 찾은 c를 가지고 경우의 수 계산
         if self.root == x: # c becomes a new root
             if c: c.parent = None
             self.root = c
@@ -126,7 +127,30 @@ class Tree:
     '''
         
     def deleteByCopying(self, x):
-        pass
+        a, b, pt = x.left, x.right, x.parent
+        # m = L에서 가장 큰 노드
+        if a != None: # L이 존재하면
+            m = a # m(L에서 가장 큰 노드)찾기
+            while m.right: # m.right이 None이 아닌 동안(m.right이 None이 나오면 leaf노드)
+                m = m.right
+            x.key = m.key # L에서 가장 큰 노드의 key값 x에 copy
+            if m.left != None:  # m의 왼쪽 서브트리가 존재하면,
+                m = m.left
+                a.right = m.left
+                m.left.parent = a
+        elif a == None and b != None: # L이 존재하지 않고, R이 존재하는 경우
+            # y = R에서 가장 작은 노드
+            y = b # y(R에서 가장 작은 노드) 찾기
+            while y.left: # y.left가 None이 아닌 동안(y.left가 None이 나오면 leaf노드)
+                y = y.left
+            x.key = y.key
+            if y.right != None: # y의 오른쪽 서브트리가 존재하면,
+                y = y.right
+                b.left = y.right
+                y.right.parent = b
+        elif a == None and b == None:
+            pt.right = None
+            
 
 
 T = Tree()
