@@ -62,6 +62,7 @@ print(b)
 from functools import reduce
 print(reduce(lambda x, y: x+y, [1, 2, 3, 4])) # (((1+2)+3)+4) = 10
 
+
 # 리스트의 최대 원소 값 구하기
 from functools import reduce
 print(reduce(lambda x,y: x if x > y else y, [1, 3, 6, 2, 8])) 
