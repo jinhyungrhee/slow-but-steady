@@ -28,9 +28,9 @@ print(add(2,3)) # 람다 함수 add를 일반 함수처럼 호출!
         ``` 
 
     3. reduce와 함께 사용
+        - ```reduce(function, iterable, initializer=None)```형식
         - reduce함수는 여러 개의 데이터를 대상으로 누적 집계를 내기 위해 사용!
         - 기본적으로 초기값을 기준으로 데이터를 루푸 돌면서 집계 함수를 계속해서 적용하며 데이터를 누적하는 방식
-        - ```reduce(function, iterable, initializer=None)```형식
         ```py
         >>> from functools import reduce 
         >>> print(reduce(lambda x, y: x+y, [1, 4, 2]))
