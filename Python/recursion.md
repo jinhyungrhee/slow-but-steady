@@ -68,5 +68,11 @@
     = factorial(2, 4*3)  # value = 4
     = factorial(1, 12*2) # value = 12
     = factorial(1)       # value = 24, return value 
-    ```
+    ```  
+
+    ➡TRO(Tail Recursion Optimization):  
+    - 재귀함수의 매개변수로 중간 계산된 factorial값을 직접 전달함.
+    - 바닥인 ```n = 1```에 도달했을 때, 이미 최종 값 24가 계산되었고 그 값을 return하여 전달만 함. 
+    - ```Tail Recursion```*을 이용하면 하나의 recursion stack의 내용을 overwrite하는 식으로 메모리 사용을 크게 줄일 수 있음!*
+
 
