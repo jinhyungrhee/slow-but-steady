@@ -27,11 +27,13 @@
     ```  
     ```
     호출과정:
-    factorial(3) = 3 * factorial(2)
-                 = 3 * (2 * factorial(1))
-                 = 3 * (2 * 1)
-                 = 3 * 2
-                 = 6
+    factorial(4) = 4 * factorial(3)
+                 = 4 * (3 * factorial(2))
+                 = 4 * (3 * 2 * factorial(1))
+                 = 4 * (3 * (2 * 1))
+                 = 4 * (3 * 2)
+                 = 4 * 6
+                 = 24
     ```  
     ➡ 리턴되는 값을 가지고 계속 계산을 하며 완성해야 함(recursion stack메모리 사용)
 
@@ -48,4 +50,23 @@
         - 깊이 조정
         ```py
         sys.setrecursionlimit(100000) # 10만으로 재설정함
-        ```
+        ```  
+
+- Tail Recursion(Python)  
+
+    - ex:  
+
+    ```py
+    def factorial(n, value=1):
+        if n == 1: return value
+        else: return factorial(n-1, value*n)
+    ```  
+    ```
+    호출과정:
+    factorial(4)
+    = factorial(3, 1*4)  # value = 1
+    = factorial(2, 4*3)  # value = 4
+    = factorial(1, 12*2) # value = 12
+    = factorial(1)       # value = 24, return value 
+    ```
+
