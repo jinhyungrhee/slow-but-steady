@@ -18,3 +18,18 @@ def is_prime(x):
 p = int(input())
 print(is_prime(p))
 
+# ex4-정수 x의 각 자리수의 합을 str,map,sum함수를 이용하여 한 줄 코드로 작성
+
+#hint
+def sum_digit(number):
+    result = 0
+    for i in str(number):
+        result = result + int(i)
+    return result
+
+print("결과 : {}".format(sum_digit(input())))
+
+'''
+A = sum(map(lambda x: for x in str(input())))
+print(A)
+'''
