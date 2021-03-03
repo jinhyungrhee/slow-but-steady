@@ -32,4 +32,34 @@ print("결과 : {}".format(sum_digit(input())))
 '''
 A = sum(map(lambda x: for x in str(input())))
 print(A)
+
 '''
+# 최대공약수 알고리즘(Euclid, 최초의 알고리즘) -> gcd_sub, gcd_mod, gcd_rec
+
+def gcd_sub(a, b): # 큰 수에 작은 수를 뺀 '나머지'로 최대공약수를 구하는 방법
+    while a != 0 and b != 0:
+        if a > b:
+            a = a - b
+        else: # a < b
+            b = b - a 
+    return a + b # a 또는 b를 리턴! (둘 중 하나는 0)
+
+def gcd_mod(a, b): # 큰 수에 작은 수를 나눈 '나머지'로 최대공약수를 구하는 방법 -> 많은 연산을 건너 뜀!
+    while a != 0 and b != 0:
+        if a > b:
+            a = a % b
+        else: # a < b
+            b = b % a
+    return a + b
+
+def gcd_rec(a, b): # 재귀호출로 최대공약수 구하는 함수 -> gcd(a, b) = gcd(a, b%a) = gcd(a%b, b) 성질 이용!
+    while a != 0 and b != 0:
+        if a > b:
+            return gcd_rec(a%b, b)
+        else: # a < b
+            return gcd_rec(a, b%a) 
+    return a + b 
+
+a, b = map(int, input().split())
+x, y, z = gcd_sub(a, b), gcd_mod(a, b), gcd_rec(a, b)
+print(x, y, z)
