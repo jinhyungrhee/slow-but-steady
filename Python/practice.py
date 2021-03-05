@@ -1,4 +1,4 @@
-
+'''
 # ex1-최대값과 최소값 구하는 함수
 
 from functools import reduce
@@ -29,7 +29,7 @@ def sum_digit(number):
 
 print("결과 : {}".format(sum_digit(input())))
 
-'''
+
 A = sum(map(lambda x: for x in str(input())))
 print(A)
 
@@ -38,27 +38,26 @@ print(A)
 
 def gcd_sub(a, b): # 큰 수에 작은 수를 뺀 '나머지'로 최대공약수를 구하는 방법
     while a != 0 and b != 0:
-        if a > b:
-            a = a - b
-        else: # a < b
-            b = b - a 
+        if a > b: a -= b
+        else: b -= a 
     return a + b # a 또는 b를 리턴! (둘 중 하나는 0)
 
 def gcd_mod(a, b): # 큰 수에 작은 수를 나눈 '나머지'로 최대공약수를 구하는 방법 -> 많은 연산을 건너 뜀!
     while a != 0 and b != 0:
-        if a > b:
-            a = a % b
-        else: # a < b
-            b = b % a
+        if a > b: a %= b
+        else: b %= a
     return a + b
 
-def gcd_rec(a, b): # 재귀호출로 최대공약수 구하는 함수 -> gcd(a, b) = gcd(a, b%a) = gcd(a%b, b) 성질 이용!
-    while a != 0 and b != 0:
-        if a > b:
-            return gcd_rec(a%b, b)
-        else: # a < b
-            return gcd_rec(a, b%a) 
-    return a + b 
+# 재귀호출로 최대공약수 구하는 함수
+def gcd_rec(a, b): # gcd_sub(90, 40) = gcd_sub(90-40, 40) = gcd_sub(큰값-작은값, 작은값) = ... = gcd_sub(큰값-작은값, 0) = 10
+    if a*b == 0: return a + b
+    if b > a: a, b = b, a # b가 a보다 크면 a와 b의 위치 변경
+    return gcd_rec(a-b, b)
+
+# a,b 크기 비교 없이, 절대값(abs)을 이용하면 안 될까?
+def gcd_rec2(a, b):
+    if a*b == 0: return a + b
+    return gcd_rec(abs(a-b), b)
 
 a, b = map(int, input().split())
 x, y, z = gcd_sub(a, b), gcd_mod(a, b), gcd_rec(a, b)
