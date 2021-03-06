@@ -28,12 +28,13 @@ def sum_digit(number):
     return result
 
 print("결과 : {}".format(sum_digit(input())))
-
-
+'''
+'''
 A = sum(map(lambda x: for x in str(input())))
 print(A)
-
 '''
+
+
 # 최대공약수 알고리즘(Euclid, 최초의 알고리즘) -> gcd_sub, gcd_mod, gcd_rec
 
 def gcd_sub(a, b): # 큰 수에 작은 수를 뺀 '나머지'로 최대공약수를 구하는 방법
@@ -54,11 +55,16 @@ def gcd_rec(a, b): # gcd_sub(90, 40) = gcd_sub(90-40, 40) = gcd_sub(큰값-작�
     if b > a: a, b = b, a # b가 a보다 크면 a와 b의 위치 변경
     return gcd_rec(a-b, b)
 
+
 # a,b 크기 비교 없이, 절대값(abs)을 이용하면 안 될까?
-def gcd_rec2(a, b):
+def gcd_rec_abs(a, b):
     if a*b == 0: return a + b
-    return gcd_rec(abs(a-b), b)
+    return gcd_rec_abs(abs(a-b), b)
+
+# => RecursionError 발생! : 90-40 = 50-40 = 10-40 = 30-40 = 10-40 = 30-40 = ... 무한히 반복되어 maxmimum recursion depth를 초과함!
+
 
 a, b = map(int, input().split())
 x, y, z = gcd_sub(a, b), gcd_mod(a, b), gcd_rec(a, b)
 print(x, y, z)
+
