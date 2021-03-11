@@ -41,14 +41,15 @@ def reverse(A):
     if len(A) == 0: return None
     return reverse(A[1:]) + A[:1]
 
-# ex4) reverse함수 - 앞 뒤 교체하는 방식
+# ex4) reverse함수 - 앞 뒤 교체하는 방식 → 이게 맞나?
 
 def reverse2(A, start, stop):
+    if abs(start - stop) == 1: return A 
     if len(A) == 0: return None
     A[start], A[stop-1] = A[stop-1], A[start]
-    return reverse2(A, start+1, stop-2)
+    return reverse2(A, start+1, stop-1)
 
 #print(sum(9))
 #print(sum2(1,9))
-A = [1, 2, 3, 4, 5]
-print(reverse2(A, 0, 5))
+A = [1, 2, 3, 4, 5, 6, 7]
+print(reverse2(A, 0, 7))
