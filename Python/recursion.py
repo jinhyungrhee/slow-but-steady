@@ -34,5 +34,21 @@ def sum2(a, b):
     m = (a + b) // 2
     return sum2(a, m) + sum2(m+1, b)
 
-print(sum(9))
-print(sum2(1,9))
+# ex3) reverse함수 - *리스트의 slice연산 이용* : A = [1, 2, 3, 4, 5] → A = [5, 4, 3, 2, 1] 
+
+def reverse(A):
+    if len(A) == 1 : return A[:1] # A[0]을 하면 값(int)이 나와서 안 됨!
+    if len(A) == 0: return None
+    return reverse(A[1:]) + A[:1]
+
+# ex4) reverse함수 - 앞 뒤 교체하는 방식
+
+def reverse2(A, start, stop):
+    if len(A) == 0: return None
+    A[start], A[stop-1] = A[stop-1], A[start]
+    return reverse2(A, start+1, stop-2)
+
+#print(sum(9))
+#print(sum2(1,9))
+A = [1, 2, 3, 4, 5]
+print(reverse2(A, 0, 5))
