@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue-Django Todo App</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: #ddd;
+        }
+        .inputBox {
+            margin: auto;
+            width: 70%;
+            background : white;
+            height:50px;
+            border-radius:50px;
+            line-height:50px;
+        }
+        .inputBox .name {
+            border-style : none;
+            border-bottom: 1px solid #ddd;
+            width: 70px;
+            padding-left : 20px;
+        }
+        .inputBox .item {
+            border-style : none;
+            border-bottom: 1px solid #ddd;
+            width: 400px;
+            margin-left:50px;
+            padding-left:20px;
+        }
+        .todoList {
+            list-style:none;
+            padding : 10px 0;
+            text-align: left;
+        }
+        .todoList li {
+            display:flex;
+            height : 50px;
+            line-height : 50px;
+            margin : 0.5rem 0;
+            padding : 0 0.9rem;
+            background : white;
+            border-radius: 5px;
+        }
+        .removeBtn {
+            margin-left : auto;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id = 'app'>
+        <h1>My Todo App !</h1>
+        <strong>서로 할 일이나 의견을 공유해 봅시다.</strong>
+        <br>
+
+        <div class="inputBox">
+            <input class="name" type="text" placeholder="name ..." v-model="name">
+            <input class="item" type="text" placeholder="type anyting welcomed ..." 
+                v-model="newTodoItem" v-on:keyup.enter="add_todo()"> <!-- 엔터 눌러도 add기능 되도록 구현 -->
+            <!-- v-model은 양방향 데이터 전달이 가능함(일반적으로는 js->html방향으로만 가능!) -->
+            <button v-on:click="add_todo()">ADD</button> 
+        </div>
+
+        <ul class="todoList">
+            <li v-for="(todo, index) in todoItems">
+                <span>{{ todo.name }} :: {{ todo.item }}</span>
+                <span class="removeBtn" v-on:click="remove_todo(index)">&#x00D7</span>
+            </li>
+        </ul>
+    </div>
+    <!-- vue.js의 역할 : DOM elements에서 필요한 데이터와 메서드를 제공 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script>
+        var vm = new Vue({ // vue 인스턴스 생성
+            el : '#app', // element : 적용할 부분의 selector 입력
+            data : {
+                name : '', // 변수1 : v-mdoel로 binding (양방향)
+                newTodoItem: '',  // 변수2 : v-mdoel로 binding (양방향)
+                todoItems : [ // 변수3 : v-for로 binding (한방향)
+                    {name : '김석훈', item : 'Django와 Vue.js 연동 프로그램을 만들고 있습니다.'},
+                    {name : '홍길동', item : '이름을 안쓰면 홍길동으로 나와요..'},
+                    {name : '이순신', item : '신에게는 아직 열두 척의 배가 있사옵니다.'},
+                    {name : '성춘향', item : '그네타기.'},
+                ]
+            },
+            methods : {
+                add_todo: function() {
+                    console.log("add_todo() ... ");
+                    if (this.name == '') this.name = '홍길동';
+                    if (this.newTodoItem == '') return;
+
+                    this.todoItems.push({name: this.name, item: this.newTodoItem});
+                    this.name = '';
+                    this.newTodoItem = ''; // push한 뒤에 입력 항목 초기화
+                },
+                remove_todo: function(index) {
+                    console.log("remove_todo()... ");
+                    this.todoItems.splice(index , 1); // 삭제는 splice 이용
+                }
+            },
+        })
+    </script>
+    
+</body>
+</html>
