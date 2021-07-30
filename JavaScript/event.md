@@ -1,6 +1,7 @@
 ## Event
 
-- **console.dir()** : element의 내부를 보는 메서드 (object로 표시한 element)
+### console.dir() 
+    - element의 내부를 보는 메서드 (object로 표시한 element)
     - 그 중 on으로 시작하는 것은 event와 관련된 것임!
     - *object 내부에 있는 일부 property의 값들은 변경할 수 있음!* (불가능한 것도 존재)
     - object로 표현된 'h1'의 내부를 보다보면 'style'이 있고 그 안에 'color' property가 있음!
@@ -15,7 +16,7 @@
 
 > JavaScript에서 대부분 하는 일은 Event를 listen하는 것!
 
-- event란?
+### event란?
     - 클릭, 마우스 이동, 입력, 접속 해제 등 외부로부터 특정 값이 변경되는 것
 
 - JavaScript에서 EventListener 등록
@@ -42,7 +43,7 @@ function handleTitleClick() {
 title.addEventListener("click", handleTitleClick); 
 ```
 
-- 예제 1 : 클릭 시 텍스트 색깔 변경
+### 예제 1 : 클릭 시 텍스트 색깔 변경
 
 ```js
 const title = document.querySelector(".hello:first-child h1");
@@ -65,7 +66,7 @@ title.addEventListener("click", handleTitleClick);
         - ex) onmouseenter : 마우스가 해당 element위에 올라갔을 때의 event  
           ex) onmouseleave : 마우스가 해당 element에서 떨어졌을 때의 event
 
-- 예제 2 : 마우스를 갖다 대거나 떼면 Text 변경
+### 예제 2 : 마우스를 갖다 대거나 떼면 Text 변경
 
 ```js
 const title = document.querySelector(".hello:first-child h1");
@@ -87,7 +88,7 @@ title.addEventListener("mouseenter", handleMouseEnter);
 title.addEventListener("mouseleave", handleMouseLeave);
 ```
 
-- 예제 3 : window 크기를 변경하면 body 색깔 변경 + 복사하면 "copier!" 경고 + wifi 온라인/오프라인 경고
+### 예제 3 : window 크기를 변경하면 body 색깔 변경 + 복사하면 "copier!" 경고 + wifi 온라인/오프라인 경고
 
 ```js
 const h1 = document.querySelector(".hello:first-child h1");
@@ -125,6 +126,27 @@ window.addEventListener("copy", handleWindowCopy);
     - ex) document.body / document.head / document.title => O
 - 나머지 element들은 querySelector나 getElementById등으로 찾아와야 함!
     - ex) document.div => X (undefined)
+
+
+### 예제 4 : if-else문을 사용하여 text 색깔 변경
+
+- const, let 사용 주의!
+```js
+const h1 = document.querySelector(".hello:first-child h1");
+
+function handleTitleClick() {
+    const currentColor = h1.style.color; // 비교하는 기존 색상 저장하는 변수
+    let newColor; // 변하는 색상 저장하는 변수
+    if(currentColor === "blue") {
+        newColor = "tomato";
+    } else {
+        newColor = "blue";
+    }
+    h1.style.color = newColor; // update
+}
+
+h1.addEventListener("click", handleTitleClick);
+```
 
 
 
