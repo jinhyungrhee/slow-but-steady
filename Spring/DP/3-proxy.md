@@ -126,78 +126,80 @@
 
 2. AOP 기능
 
-- AOP브라우저 클래스 (AopBrowser.java)
-```java
-public class AopBrowser implements IBrowser {
+    - AOP브라우저 클래스 (AopBrowser.java)
 
-    private String url;
-    private Html html;
-    // aop는 '관점지향'임 - 앞과 뒤 체크
-    // functional interface runnable 사용
-    private Runnable before;
-    private Runnable after;
+    ```java
+    public class AopBrowser implements IBrowser {
 
-    // default 생성자로 argument 3개 받음
-    public AopBrowser(String url, Runnable before, Runnable after) {
-        this.url =url;
-        this.before = before;
-        this.after = after;
-    }
-    
-    @Override
-    public Html show() {
-        // html 로딩 시간 체크
-        before.run();
+        private String url;
+        private Html html;
+        // aop는 '관점지향'임 - 앞과 뒤 체크
+        // functional interface runnable 사용
+        private Runnable before;
+        private Runnable after;
 
-        if (html == null) {
-            this.html = new Html(url);
-            System.out.println("AopBrowser html loading from : "+url);
-            // 메서드 자체가 워낙 빠르므로 sleep() - try/catch 사용
-            try {
-                Thread.sleep(1500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        // default 생성자로 argument 3개 받음
+        public AopBrowser(String url, Runnable before, Runnable after) {
+            this.url =url;
+            this.before = before;
+            this.after = after;
         }
+        
+        @Override
+        public Html show() {
+            // html 로딩 시간 체크
+            before.run();
 
-        after.run();
-
-        System.out.println("AopBrowser html cache : "+url);
-        return html;
-    }
-}
-```
-
-- Main.java
-```java
-public class Main {
-
-    public static void main(String[] args) {
-      
-        // 시간체크 - 동시성
-        AtomicLong start = new AtomicLong();
-        AtomicLong end = new AtomicLong();
-
-        IBrowser aopBrowser = new AopBrowser("www.naver.com",
-                // runnable 람다식 표현
-                // 앞뒤로 실행시키고 싶은 메서드 람다식으로 넣어줌
-                ()->{
-                    System.out.println("before");
-                    start.set(System.currentTimeMillis());
-                },
-                ()->{
-                    long now = System.currentTimeMillis();
-                    end.set(now - start.get());
+            if (html == null) {
+                this.html = new Html(url);
+                System.out.println("AopBrowser html loading from : "+url);
+                // 메서드 자체가 워낙 빠르므로 sleep() - try/catch 사용
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                );
+            }
 
-        // 첫 번째 show()메서드가 걸린시간 : 1.5초
-        aopBrowser.show();
-        System.out.println("loading time : " + end.get());
+            after.run();
 
-        // 두 번째 show()메서드가 걸린시간 : 0초 (cache 제대로 작동)
-        aopBrowser.show();
-        System.out.println("loading time : " + end.get());
-   }
-}
-```
+            System.out.println("AopBrowser html cache : "+url);
+            return html;
+        }
+    }
+    ```
+
+    - Main.java
+    
+    ```java
+    public class Main {
+
+        public static void main(String[] args) {
+        
+            // 시간체크 - 동시성
+            AtomicLong start = new AtomicLong();
+            AtomicLong end = new AtomicLong();
+
+            IBrowser aopBrowser = new AopBrowser("www.naver.com",
+                    // runnable 람다식 표현
+                    // 앞뒤로 실행시키고 싶은 메서드 람다식으로 넣어줌
+                    ()->{
+                        System.out.println("before");
+                        start.set(System.currentTimeMillis());
+                    },
+                    ()->{
+                        long now = System.currentTimeMillis();
+                        end.set(now - start.get());
+                    }
+                    );
+
+            // 첫 번째 show()메서드가 걸린시간 : 1.5초
+            aopBrowser.show();
+            System.out.println("loading time : " + end.get());
+
+            // 두 번째 show()메서드가 걸린시간 : 0초 (cache 제대로 작동)
+            aopBrowser.show();
+            System.out.println("loading time : " + end.get());
+    }
+    }
+    ```
