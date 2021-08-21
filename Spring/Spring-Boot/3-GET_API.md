@@ -2,8 +2,8 @@
 
 - 리소스 취득
 - READ
-- 멱등성
-- 안정성
+- 멱등성 O
+- 안정성 O
 - Path Variable로 받을 수 있음
     ```java
     @RestController
