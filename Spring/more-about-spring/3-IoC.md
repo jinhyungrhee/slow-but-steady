@@ -80,25 +80,25 @@
             ```java
             public class Encoder {
 
-            private IEncoder iEncoder;
+                private IEncoder iEncoder;
 
-            // DI : 생성자에서 인터페이스 받아서 사용
-            public Encoder(IEncoder iEncoder) {
-                this.iEncoder = iEncoder;
+                // DI : 생성자에서 인터페이스 받아서 사용
+                public Encoder(IEncoder iEncoder) {
+                    this.iEncoder = iEncoder;
+                }
+
+                // set 메서드 생성 - Bean을 주입받을 수 있는 장소 : 1) 변수 생성자  2) set 메서드
+                public void setIEncoder(IEncoder iEncoder){
+                    this.iEncoder = iEncoder;
+                }
+
+                public String encode(String message) {
+                    // iEncoder를 통해 encode 호출
+                    return iEncoder.encode(message);
+
+                }
             }
-
-            // set 메서드 생성 - Bean을 주입받을 수 있는 장소 : 1) 변수 생성자  2) set 메서드
-            public void setIEncoder(IEncoder iEncoder){
-                this.iEncoder = iEncoder;
-            }
-
-            public String encode(String message) {
-                // iEncoder를 통해 encode 호출
-                return iEncoder.encode(message);
-
-            }
-        }
-        ```
+            ```
 
     - IoC(제어의 역전)
         - Bean을 통해 객체 주입받기
