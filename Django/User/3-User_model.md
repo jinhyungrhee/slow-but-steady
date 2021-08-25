@@ -24,7 +24,7 @@
 
 ## 코드로 확인
 
-- **User 모델 등록**(생성)
+- **User 모델 정의**(생성)
     - AbstractUser import
     - coplate/models.py
         ```py
@@ -38,7 +38,7 @@
             pass
         ```
 
-- User 모델 생성(등록) 후 **AUTH_USER_MODEL 설정**하기 (중요!)
+- User 모델 정의(등록) 후 **AUTH_USER_MODEL 설정**하기 (중요!)
     - coplate app에 있는 User모델을 이번 프로젝트 내에서 user모델로 사용하겠다는 의미
     - 마이그레이션 시 우리의 커스텀 유저 모델을 참조해서 테이블을 만들어주고 allauth가 커스텀 유저모델을 사용함
     - coplate_project/settings.py
@@ -60,26 +60,47 @@
             ```
     - `python manage.py migrate`
         - 결과
-                ```
-                Operations to perform:
-                Apply all migrations: admin, auth, contenttypes, coplate, sessions
-                Running migrations:
-                Applying contenttypes.0001_initial... OK
-                Applying contenttypes.0002_remove_content_type_name... OK
-                Applying auth.0001_initial... OK
-                Applying auth.0002_alter_permission_name_max_length... OK
-                Applying auth.0003_alter_user_email_max_length... OK
-                Applying auth.0004_alter_user_username_opts... OK
-                Applying auth.0005_alter_user_last_login_null... OK
-                Applying auth.0006_require_contenttypes_0002... OK
-                Applying auth.0007_alter_validators_add_error_messages... OK
-                Applying auth.0008_alter_user_username_max_length... OK
-                Applying auth.0009_alter_user_last_name_max_length... OK
-                Applying auth.0010_alter_group_name_max_length... OK
-                Applying auth.0011_update_proxy_permissions... OK
-                Applying coplate.0001_initial... OK
-                Applying admin.0001_initial... OK
-                Applying admin.0002_logentry_remove_auto_add... OK
-                Applying admin.0003_logentry_add_action_flag_choices... OK
-                Applying sessions.0001_initial... OK
-                ```
+            ```
+            Operations to perform:
+            Apply all migrations: admin, auth, contenttypes, coplate, sessions
+            Running migrations:
+            Applying contenttypes.0001_initial... OK
+            Applying contenttypes.0002_remove_content_type_name... OK
+            Applying auth.0001_initial... OK
+            Applying auth.0002_alter_permission_name_max_length... OK
+            Applying auth.0003_alter_user_email_max_length... OK
+            Applying auth.0004_alter_user_username_opts... OK
+            Applying auth.0005_alter_user_last_login_null... OK
+            Applying auth.0006_require_contenttypes_0002... OK
+            Applying auth.0007_alter_validators_add_error_messages... OK
+            Applying auth.0008_alter_user_username_max_length... OK
+            Applying auth.0009_alter_user_last_name_max_length... OK
+            Applying auth.0010_alter_group_name_max_length... OK
+            Applying auth.0011_update_proxy_permissions... OK
+            Applying coplate.0001_initial... OK
+            Applying admin.0001_initial... OK
+            Applying admin.0002_logentry_remove_auto_add... OK
+            Applying admin.0003_logentry_add_action_flag_choices... OK
+            Applying sessions.0001_initial... OK
+            ```
+
+- User model을 admin 페이지에 등록
+    - coplate/admin.py
+        ```py
+        from django.contrib import admin
+        from django.contrib.auth.admin import UserAdmin
+        from .models import User
+
+        # Register your models here.
+        # User모델은 User admin을 같이 등록해줘야 함!
+        # UserAdmin 클래스는 User모델에 대해서 특별한 인터페이스 제공
+        admin.site.register(User, UserAdmin)
+        ```
+    - User모델은 UserAdmin을 같이 등록해줘야 함!
+    - UserAdmin 클래스는 User모델에 대해서 특별한 인터페이스 제공
+        - User model은 Admin 페이지에서 중요한 역할을 함!
+
+- superuser 생성하여 admin 페이지에 접속하기
+    - `python manage.py createsuperuser`
+    - superuser도 우리가 models.py에서 정의한 User 모델의 하나의 인스턴스임
+    - admin 페이지 접속 가능하며 모든 모델에 대한 생성/조회/수정/삭제의 권한이 있음
