@@ -73,7 +73,7 @@
                 ...
             ]
             ```
-        - ❗하지만 이대로 추가하면 `'acccount/s' + 'allauth의 url들'` 형태가 됨❗ ➡ *지저분*
+        - ❗하지만 이대로 추가하면 `'acccounts/' + 'allauth의 url'` 형태가 됨❗ ➡ *지저분*
             - ex) accounts/login
             - ex) accounts/signup
 
