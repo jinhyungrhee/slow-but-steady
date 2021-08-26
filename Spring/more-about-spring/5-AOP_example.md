@@ -548,7 +548,7 @@
 
 ### @Component와 @Bean의 차이
 
-    - @Bean은 클래스에 붙일 수 없음
-        - @Bean은 메소드 단위로 사용하는 annotation
-        - @Configuration을 통해 하나의 클래스에 여러 가지 Bean을 등록할 수 있음!
-    - @Component를 통해 클래스 단위로 Bean을 등록시킬 수 있으
+- @Bean은 클래스에 붙일 수 없음
+    - @Bean은 메소드 단위로 사용하는 annotation
+    - @Configuration을 통해 하나의 클래스에 여러 가지 Bean을 등록할 수 있음!
+- @Component를 통해 클래스 단위로 Bean을 등록시킬 수 있으
