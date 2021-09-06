@@ -3,7 +3,7 @@
 ## Filter란?
 
 - Web Application에서 관리되는 영역
-- Spring Boot Framework에서 Client로부터 오는 요청/응답 즉, 최최/최종 단계의 위치에 존재하는 것
+- Spring Boot Framework에서 Client로부터 오는 요청/응답 즉, 최초/최종 단계의 위치에 존재하는 것
 - 이를 통해 요청/응답의 정보를 변경 가능
 - Spring에 의해서 데이터가 변환되기 전의 순수한 Client의 요청/응답 값 확인 가능
 
