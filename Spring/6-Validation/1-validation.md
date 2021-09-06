@@ -54,7 +54,7 @@
 - Validation 세팅
     1. gradle dependencies 추가
         - `implementation("org.springframework.boot:spring-boot-starter-validation")`
-    2. been validation spec 확인
+    2. bean validation spec 확인
         - bean validation에 대한 정의
             - 어떠한 annotation이 제공되고 있으며 어느 것을 활용하면 되는지 sample 확인 가능!
         - https://beanvalidation.org/2.0-jsr380/
@@ -145,18 +145,19 @@
     - JSON request body
         - 이것은 잘못된 request임
         - client가 server에 정상적인 데이터를 보내지 않은 것
-    ```js
-    {
-    "name" :  "홍길동",
-    "age" : 10,
-    "email" : "abcdefg",
-    "phoneNumber" : "01011112222"
-    }
-    ```
+        ```js
+        {
+        "name" :  "홍길동",
+        "age" : 10,
+        "email" : "abcdefg",
+        "phoneNumber" : "01011112222"
+        }
+        ```
 
-    - console 출력 결과
-        - 우리가 원하는 출력 형식이 아님 (email, phoneNumber)
-    `User{name='홍길동', age=10, email='abcdefg', phoneNumber='01011112222'}`
+    - console 출력 결과  
+        `User{name='홍길동', age=10, email='abcdefg', phoneNumber='01011112222'}`
+        - 하지만 이는 우리가 원하는 출력 형식이 아님 (email, phoneNumber)  
+    
     
 
 - 옛날식 코드
