@@ -253,7 +253,7 @@
             }
             ```
 
-    - Controller에서도 입력 받는 객체에 대해서 validation이 필요할 때 @Valid annotatino 적용
+    - Controller에서도 입력 받는 객체에 대해서 validation이 필요할 때 @Valid annotation 적용
         - controller/ApiController.java
             ```java
             @RestController
@@ -349,7 +349,7 @@
         - Spring valid annotation을 사용하면 if문 없이 간단하게 유효성 검사 가능
         - 발생한 에러 값을 가지고 따로 처리해줄 수도 있음 (예외처리는 뒤에서 배움)
 
-- Spring Validation - BindingResult 사용하기
+- Spring Validation - **BindingResult** 사용하기
     - POST Method에서 BindingResult 객체도 함께 받음
     - **에러가 발생하는 것이 아니라 Validation에 대한 결과가 bindingResult 값으로 들어오게 됨!**
         - 그럼 bindingResult값을 확인해보자~
