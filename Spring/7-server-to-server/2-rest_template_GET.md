@@ -1,4 +1,4 @@
-# Rest Template 사용하기
+# Rest Template 사용하기 - GET
 
 - server를 두 개 띄우기 때문에 헷갈림 주의
 
