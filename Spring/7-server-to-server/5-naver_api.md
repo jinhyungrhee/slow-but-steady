@@ -82,8 +82,8 @@
             // GET으로 요청하기 때문에 Void 타입
             RequestEntity<Void> req = RequestEntity
                     .get(uri)
-                    .header("X-Naver-Client-Id","gWwbweaz0qvf3B7DcAko")
-                    .header("X-Naver-Client-Secret", "wM4qwe3DVN")
+                    .header("X-Naver-Client-Id","xxxxxxxxxxxxxxxx")
+                    .header("X-Naver-Client-Secret", "xxxxxxxxxx")
                     .build();
 
             // 일단 String으로 결과를 받음
