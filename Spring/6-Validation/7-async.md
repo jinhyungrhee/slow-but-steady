@@ -224,7 +224,7 @@
                 return asyncService.run();
             }
         }
-    ```
+        ```
 
 - CompletableFuture가 반환형일때 별도의 Thread에서 실행시켜줌
 - 결국에 이 작업이 끝나고 나서 "async hello"라는 response 내려줌
