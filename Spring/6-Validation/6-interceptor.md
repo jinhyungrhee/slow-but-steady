@@ -56,7 +56,7 @@
     - annotatino/Auth.java
         ```java
         @Documented
-        @Retention(RetentionPolicy.RUNTIME)
+        @Retention(RetentionPolicy.RUNTIME) - 커스텀 어노테이션을 만들기 위한 @Retension, 어노테이션이 실제로 적용되고 유지되는 범위를 설정함 (RUNTIME 외에도 CLASS, SOURCE가 있음), 다른 커스텀 어노테이션을 위한 @Target -> 얘는 어디에 적용될지 결정하는 용도 (TYPE, FIELD, METHOD etc..)
         @Target({ElementType.TYPE, ElementType.METHOD})
         public @interface Auth {
         }
