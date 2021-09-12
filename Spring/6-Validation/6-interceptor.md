@@ -395,7 +395,7 @@
                     }
             ```
     ➡ 권한이 없는 경우 false 리턴 대신 AuthException을 터뜨림  
-    ➡ AuthException 터지면 Handler(RestControllerAdvice)가 받아서 UNAUTHORIZED status code 401를 내려줌
+    ➡ AuthException 터지면 Handler(GlobalExceptionHandler)가 받아서 UNAUTHORIZED status code 401를 내려줌
 
 
 ## 정리
