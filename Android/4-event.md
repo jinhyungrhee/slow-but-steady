@@ -284,3 +284,298 @@
 ## 커스텀 컴포넌트
 
 - 개발자가 직접 View 클래스를 상속받아서 필요한 위젯을 개발 가능
+
+## 이벤트 처리 메서드 재정의
+
+- 이벤트 처리와 관련된 여러 가지 메서스들이 미리 정의되어 있고 그것들을 자기 뷰에 적용하기 위해서 재정의(오버라이딩)해서 사용
+- 재정의할 수 있는 콜백 메서드
+    - onKeyDown(int, KeyEvent)
+    - onKeyUP(int, KeyEvent)
+    - onTrackballEvent(MotionEvent)
+    - onTouchEvent(MotionEvent)
+        - 해당 뷰에 터치가 발생했을 경우, 터치 이벤트가 만들어져서 콜백으로 전달됨
+        - 재정의를 해놓았다면 해당 메서드가 실행되어서 원하는 작업을 수행함
+    - onFocusChanged(boolean, int, Rect)
+- invalidate()
+    - 해당 뷰/컴포넌트에 대해 invalidate를 시켜주면 콜백으로 미리 정의해놓은 그리기 함수(onDraw(Canvas canvas){...})등을 호출할 수 있음
+- 예시
+    ```java
+    public class MainActivity extends AppCompatActivity {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            // 객체를 직접 만들어서 Root View에다가 넣어주는 코드
+            MyView myView = new MyView(this);
+            setContentView(myView);
+        }
+    }
+    // 클래스 정의(객체는 실제 코드에서 따로 생성 필요)
+    class MyView extends View {
+
+        int key;
+        String str;
+        int x,y;
+
+        // 기본 view는 기본 생성자 하나만 있어도 됨
+        public MyView(Context context) {
+            super(context);
+            setBackgroundColor(Color.YELLOW);
+        }
+
+        // 우클릭 - generate - override methods
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+            x = (int)event.getX();
+            y = (int)event.getY();
+            invalidate(); // onDraw() 메서드가 콜백으로 불림
+            return super.onTouchEvent(event);
+        }
+
+        // 우클릭 - generate - override methods
+        @Override
+        protected void onDraw(Canvas canvas) {
+            // 그림 그리는 graphics 작업 수행
+            super.onDraw(canvas);
+            Paint paint = new Paint();
+            paint.setTextSize(50);
+            // canvas(뷰 바탕화면)에 여러 가지 도형 넣어줄 수 있음
+            canvas.drawCircle(x,y,30,paint);
+            canvas.drawText("(" + x + "," + y + ") Touch Occurred", x, y, paint);
+        }
+    }
+    ``` 
+    - **일반적으로 하나의 java파일 안에는 public class는 하나만 존재할 수 있음!**
+
+## 볼륨 컨트롤러 예제
+
+- 특정 위젯 뷰를 상속받은 커스텀 뷰를 만듦
+    - 이미지 뷰에서 touch 이벤트가 발생했을 경우에 onTouch()가 호출되고
+    - onTouch()가 호출된 위치에 따라서 이미지를 회전시킴
+    - volume을 돌렸을 경우에 얼마나 늘어났고 줄어들었는지를 ratingBar를 이용하여 표시함
+        - 이를 듣기 위한 listener : `KnobListener` (인터페이스로 정의 필요!)
+
+1. eventtest 패키지 아래 새로운 VolumeControlView 클래스 생성
+    ```java
+    // view에 touch 이벤트를 넣을 수 있도록 OnTouchListener 인터페이스를 implement함
+    // ImageView 에러 - ImageView는 widget 아래 있는 것이고 기본적으로 모든 activity들은 AppCompatActivity를 상속받음
+    // ImageView도 AppCompatActivity를 확장해서 상속받아야함 (두가지 방법 중 아무거나)
+    @SuppressLint("AppCompatCustomView")
+    public class VolumeControlView extends ImageView implements View.OnTouchListener {
+
+        private double angle = 0.0;
+        private KnobListener listener;
+        float x,y;
+        float mx, my;
+
+        // KnobListener 인터페이스 정의
+        public interface KnobListener {
+            // abstract 메서드도 정의
+            public void onChanged(double angle);
+        }
+
+        // listener를 등록할 변수
+        public void setKnobListener(KnobListener lis){
+            listener = lis;
+        }
+
+        // ImageView의 경우에는 context만 있는 생성자와 attribute를 받는 생성자 두 개를 만들어야 함
+        public VolumeControlView(Context context) {
+            super(context);
+            this.setImageResource(R.drawable.knob);
+            this.setOnTouchListener(this);
+        }
+
+        public VolumeControlView(Context context, @Nullable AttributeSet attrs) {
+            super(context, attrs);
+            this.setImageResource(R.drawable.knob);
+            this.setOnTouchListener(this);
+        }
+        private double getAngle(float x, float y) {
+            mx = x - (getWidth() / 2.0f);
+            my = (getHeight() / 2.0f) - y;
+
+            double degree = Math.atan2(mx, my) * 100.0 / Math.PI;
+            return degree;
+        }
+
+        // OnTouchListener 인터페이스 안에 있는 abstract 메서드 구현 필요
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            x = motionEvent.getX();
+            y = motionEvent.getY();
+            angle = getAngle(x, y);
+            invalidate();
+            listener.onChanged(angle);
+            return false;
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            canvas.rotate((float) angle, getWidth()/2, getHeight()/2);
+            super.onDraw(canvas);
+        }
+    }
+    ```
+
+2. XML 레이아웃 정의
+    ```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <!--커스텀 컴포넌트 생성-->
+        <com.example.eventtest.VolumeControlView
+            android:id="@+id/volume"
+            android:layout_width="300px"
+            android:layout_height="300px" />
+
+        <RatingBar
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:stepSize="1.0" />
+
+
+    </LinearLayout>
+    ```
+
+3. MainActivity.java에서 VolumeControlView와 ratingBar 연결
+    ```java
+    public class MainActivity extends AppCompatActivity {
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            // xml에 정의된 레이아웃 그려줌
+            setContentView(R.layout.activity_main);
+            
+            // MainActivity에서 rating bar를 달아서 넣어줘야함
+            RatingBar bar = (RatingBar) findViewById(R.id.rating);
+            VolumeControlView view = (VolumeControlView) findViewById(R.id.volume);
+            view.setKnobListener(new VolumeControlView.KnobListener() {
+                @Override
+                public void onChanged(double angle) {
+                    // 전달받은 angle에 따라서 rating bar에 값을 넣어줌
+                    float rating = bar.getRating();
+                    if (angle > 0 && rating < 7.0) {
+                        bar.setRating(rating + 1.0f); // rating bar 하나 증가
+                    } else if (rating > 0.0) {
+                        bar.setRating(rating - 1.0f);
+                    }
+                }
+            });
+        }
+    }
+    ```
+
+## 터치 이벤트
+
+- 일반적으로 커스텀 뷰를 정의하고 onTouchEvent()를 재정의해서 사용
+- 터치 이벤트의 종류
+    |액션|설명|
+    |--|--|
+    |ACTION_DOWN|누르는 동작이 시작됨|
+    |ACTION_UP|누르고 있따가 뗄때 발생함|
+    |ACTION_MOVE|누르는 도중에 움직임|
+    |ACTION_CANCEL|터치 동작이 취소됨|
+    |ACTION_OUTSIDE|터치가 현재의 위젯을 벗어남|
+
+- 예제
+    - MainActivity.java
+        ```java
+        public class MainActivity extends AppCompatActivity {
+
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                // myView 넣어주기
+                MyView myView = new MyView(this);
+                setContentView(myView);
+            }
+        }
+        // 클래스 정의(객체는 실제 코드에서 따로 생성 필요)
+        class MyView extends View {
+
+            int key;
+            String str;
+            float x,y;
+            
+            // 그림판 그리기 예제
+            private Paint paint = new Paint();
+            private Path path = new Path();
+
+            // 기본 view는 기본 생성자 하나만 있어도 됨
+            public MyView(Context context) {
+                super(context);
+                setBackgroundColor(Color.YELLOW);
+                // 페인트 속성 지정
+                paint.setAntiAlias(true);
+                paint.setStrokeWidth(10f);
+                paint.setColor(Color.BLUE);
+                paint.setStyle(Paint.Style.STROKE);
+                paint.setStrokeJoin(Paint.Join.ROUND);
+            }
+
+            // 우클릭 - generate - override methods
+            @Override
+            public boolean onTouchEvent(MotionEvent event) {
+                x = event.getX();
+                y = event.getY();
+                // 터치 이벤트의 타입을 확인하고 처리가능
+                // 터치가 발생할 때마다 case를 만들어줌
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // DOWN이 발생하면 path를 시작함
+                    path.moveTo(x,y);
+                }
+                if(event.getAction() == MotionEvent.ACTION_MOVE) {
+                    // MOVE가 발생하면 라인을 이어줌
+                    path.lineTo(x,y);
+                }
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+
+                }
+                // 터치 이벤트를 모두 입력받고 나중에 그에 해당하는 값을 그려줌(콜백)
+                // onDraw() 메서드가 콜백으로 불림
+                invalidate();
+
+                // onTouchEvent에서 자기가 그렸던 것을 온전히 적용하기 위해서는 true를 리턴해야 함!
+                return true;
+            }
+
+            // 우클릭 - generate - override methods
+            @Override
+            protected void onDraw(Canvas canvas) {
+                // 그림 그리는 graphics 작업 수행
+                super.onDraw(canvas);
+                canvas.drawPath(path, paint);
+            }
+        }
+        ```
+
+## 멀티 터치
+- 여러 개의 손가락을 이용하여 화면을 터치하는 것
+- 이미지를 확대/축소할 때 많이 사용됨
+- 터치 이벤트
+    - 터치가 발생할 때마다 현재 몇 번째 터치인지, 몇 개의 터치가 들어오는지 index 값을 통해 알아낼 수 있음
+    - `ACTION_DOWN`
+        - 화면을 터치하는 첫 번째 포인터에 대하여 발생함
+        - 제스처 인식이 시작됨
+        - 첫 번째 터치는 항상 MotionEvent에서 인덱스 0번에 저장됨
+    - `ACTION_POINTER_DOWN`
+        - 첫 번째 포인터 이외의 포인터에 대하여 발생됨 (두 번째, 세 번째...)
+        - 포인터 데이터는 getActionIndex()이 반환하는 인덱스에 저장됨
+    - `ACTION_MOVE`
+        - 화면을 누르면서 이동할 때 발생
+    - `ACTION_POINTER_UP`
+        - 마지막 포인터가 아닌 다른 포인터가 화면에서 없어지면 발생됨
+    - `ACTION_UP`
+        - 화면을 떠나는 마지막 포인터에 대해서 발생됨
+
+- 예제
+    - MultiTouchView 클래스 생성
