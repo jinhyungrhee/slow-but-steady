@@ -262,22 +262,22 @@
     - 팝업창으로 알림 받기 가능
 
   - 알림을 만드는 절차
-    1. 알림 채널 생성 : 알림 받는 기능
+    - 알림 채널 생성 : 알림 받는 기능
       - createNotificationChannel()
-    2. 알림 빌더 생성 : 알림 보내는 기능
+    - 알림 빌더 생성 : 알림 보내는 기능
       - NotificationCompat.Builder builder = new
       - NotificationCompat.Builder(this);
-    3. 알림 속성 설정
+    - 알림 속성 설정
       - builder.setSmallIcon(R.drawable.notification_icon);
       - builder.setContentTitle();
       - builder.setContentText();
-    4. 액션 첨부 (선택 사항) 
+    - 액션 첨부 (선택 사항) 
       - 주로 다른 액티비티를 깨워서 일을 시키거나 자기 액티비티를 실행하는 이벤트 
       - **Intent** : 액티비티와 액티비티 사이에 어떤 정보를 전달하는 하나의 Bundle 형태의 매개체/객체(주로 다른 액티비티를 call하는 용도)
         - Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com/"));
         - PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0); 
         - builder.setContentIntent(pendingIntent); (나중에 클릭했을 시에 실행시킴:pending)
-    5. 알림 객체 생성하여 보내기
+    - 알림 객체 생성하여 보내기
       - 만들어진 notification은 생성된 뒤에 notificationManager에 등록시킴
         - NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         - notificationManager.notify(NOTIFICATION_ID, builder.build());
