@@ -160,3 +160,185 @@
 
   - 사용방법
     - AlertDialogBuilder 이용해 객체 생성
+      ```java
+      public void onClick(View view) {
+          AlertDialog.Builder builder = new AlertDialog.Builder(this);
+          builder.setTitle("결제");
+          builder.setMessage("결제하시겠습니까?");
+          //positive : 오른쪽버튼
+          builder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {
+                  Toast.makeText(MainActivity.this, "결제가 완료되었습니다", Toast.LENGTH_LONG).show();
+              }
+          });
+          // negative : 왼쪽버튼
+          builder.setNegativeButton("no", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {
+                  Toast.makeText(MainActivity.this, "결제가 취소되었습니다", Toast.LENGTH_LONG).show();
+              }
+          });
+          AlertDialog dialog = builder.create();
+          dialog.show();
+      }
+      ```
+
+### DatePickerDialog
+
+- 날짜와 시간을 입력받는 대화 상자
+
+- 사용방법
+  - activity_main.xml
+    ```xml
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="날짜"
+        android:onClick="onClick"
+        android:id="@+id/dateButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시간"
+        android:onClick="onClick"
+        android:id="@+id/timeButton" />
+    ```
+
+  - MainActivity.java
+    ```java
+    Button dateButton;
+    Button timeButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        dateButton = (Button) findViewById(R.id.dateButton);
+        timeButton = (Button) findViewById(R.id.timeButton);
+
+        ...
+    }
+    ...
+
+    public void onClick(View view) {
+        //날짜 계산하는 java 캘린더 객체 그대로 사용
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+
+        if(view.getId() == R.id.dateButton) { // 날짜를 받아오는 코드 필요
+            DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                    dateButton.setText(year+"/"+(month+1)+"/"+day);
+                }
+            }, year, month, day); // defualt 날짜 설정
+            dialog.show();
+        }
+
+        if(view.getId() == R.id.timeButton) {
+            TimePickerDialog dialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker timePicker, int i, int i1) {
+
+                }
+            }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
+            dialog.show();
+        }
+    }
+    ```
+
+## 커스텀 대화 상자
+  - 사용자가 마음대로 대화 상자의 내용을 디자인할 수 있는 대화 상자
+
+## 알림 기능(notification)
+  - 어떤 이벤트가 발생했을 때, 앱이 사용자에게 전달하는 메시지
+    - 자기 앱에서 자기한테 알림 가능
+    - 다른 앱이 다른 앱에게 알림 가능
+    - 팝업창으로 알림 받기 가능
+
+  - 알림을 만드는 절차
+    1. 알림 채널 생성 : 알림 받는 기능
+      - createNotificationChannel()
+    2. 알림 빌더 생성 : 알림 보내는 기능
+      - NotificationCompat.Builder builder = new
+      - NotificationCompat.Builder(this);
+    3. 알림 속성 설정
+      - builder.setSmallIcon(R.drawable.notification_icon);
+      - builder.setContentTitle();
+      - builder.setContentText();
+    4. 액션 첨부 (선택 사항) 
+      - 주로 다른 액티비티를 깨워서 일을 시키거나 자기 액티비티를 실행하는 이벤트 
+      - **Intent** : 액티비티와 액티비티 사이에 어떤 정보를 전달하는 하나의 Bundle 형태의 매개체/객체(주로 다른 액티비티를 call하는 용도)
+        - Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com/"));
+        - PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0); 
+        - builder.setContentIntent(pendingIntent); (나중에 클릭했을 시에 실행시킴:pending)
+    5. 알림 객체 생성하여 보내기
+      - 만들어진 notification은 생성된 뒤에 notificationManager에 등록시킴
+        - NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        - notificationManager.notify(NOTIFICATION_ID, builder.build());
+
+  - 코드
+    - activity_main.xml
+      ```xml
+      ...
+      <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="알림"
+        android:onClick="onClick"
+        android:id="@+id/notify" />
+      ...
+      ```
+
+    - MainActivity.java
+      ```java
+      @Override
+      protected void onCreate(Bundle savedInstanceState) {
+          super.onCreate(savedInstanceState);
+          setContentView(R.layout.activity_main);
+
+          //...
+
+          // notification 버전 체크 + 채널 생성 (onCreate()함수 안에 위치)
+          if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+              // notificationChannel 생성
+              NotificationChannel channel = new NotificationChannel(NOTIFICATION_CH_ID, "My Notification",
+                      NotificationManager.IMPORTANCE_DEFAULT);
+              // Channel에 description 기술
+              channel.setDescription("Channel Description");
+              // Notification service를 가져와서 NotificationManager에다가 채널 만들어줌 (채널 생성 완료)
+              NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+          }
+      }
+      
+      //...
+      public void onClick(View view) {
+        //...
+        // 버튼 클릭 시 notification 만들어주는 곳(Notification Builder이용)
+        if(view.getId() == R.id.notify) {
+            // Builder 객체 생성
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CH_ID);
+            // pending (클릭했을 때의 작업을 intent로 만들어서 pending시킴)
+            // intent : 한 액티비티에서 다른 액티비티로 call할 때 사용할 수 있는 bundle형태의 객체
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://goolge.com"));
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+            // builder를 이용해 원하는 notification 생성
+            builder.setSmallIcon(R.drawable.knob)
+                    .setContentTitle("메일 알림")
+                    .setContentText("알림이 도착했습니다")
+                    .setContentIntent(pendingIntent);
+
+            // NotifciationManager에게 생성된 notification 정보를 보내줌
+            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(1, builder.build());
+        }
+      }
+      ```
+
+    - 
