@@ -11,7 +11,7 @@
       image: https://openapi.naver.com/v1/search/image
   client:
     id: xxxxxxxx
-    sercret: xxxxxxxxxx
+    secret: xxxxxxxxxx
   ```
 
 2. Naver Client 생성
