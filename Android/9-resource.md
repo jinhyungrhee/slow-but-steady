@@ -113,3 +113,67 @@
   - drawable-ko-mdpi/image.png
   - values-en/strings.xml
   - values-ko/strings.xml
+
+- 지역 변경 방법(locale 변경)
+  - 시스템 - languages & input - Add a language
+
+## 보안
+
+- 안드로이드에서도 애플리케이션이 마음대로 시스템이나 다른 애플리케이션을 건드릴 수 있다면 심각한 위협
+- 안드로이드에서 각 애플리케이션은 자신의 프로세스 안에서 실행
+  - 다른 애플리케이션을 건드릴 수 없음
+    - Sandboxing
+- 안드로이드 프레임워크 내부에서 연락처나 개인정보 등을 관리하는 것 => `content provider`
+- 안드로이드 초창기에는 권한들을 일일이 manifest 파일에 작성하면서 설정했음
+  - 외부에 노출되기 쉬우므로 보안이 취약했음
+- 앱을 설치해서 사용할 때, 시스템 안에 있는 자원들에 접근할 수 있는 권한을 사용자가 직접 주도록 바뀜
+
+- 어플리케이션 서명(Application Signing)
+  - 모든 안드로이드 어플리케이션(.apk 파일)은 인증서로 서명함
+  - 인증서는 애플리케이션의 작성자를 식별하는 역할
+
+## 권한 요청하기(예전방법)
+
+- 만약 애플리케이션이 보호된 기능이나 장치 안의 데이터에 접근하려면 AndroidManifest.xml 파일에 필요한 권한을 표시함
+- \<uses-permission> 태그를 사용
+  ```xml
+  <?xml version="1.0" encoding="utf-8"?>
+  <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kr.co.company.PermissionTest"
+    android:versionCode="1"
+    android:versionName="1.0">
+  ...
+  <uses-permission android:name="android.permmission.RECEIVE_SMS"></uses-permission>
+  </manifest>
+  ```
+
+## 권한의 종류
+
+|권한|권한 이름|설명|
+|--|--|--|
+|지리 정보 사용|ACCESS_FINE_LOCATION|GPS와 같은 정밀한 위치 정보 사용|
+|전화 걸기|CALL_PHONE|애플리케이션이 전화 걸기 기능 사용|
+|카메라|CAMERA|카메라 사용 가능|
+|일정 정보|READ_CALENDAR|일정 정보 읽기|
+|일정 정보|WRITE_CALENDAR|일정 정보 쓰기|
+|연락처 정보|READ_CONTACTS|연락처 읽기|
+|연락처 정보|WRITE_CONTACTS|연락처 쓰기|
+|인터넷|INTERNET|인터넷 접속|
+
+## 권한 요청하기(최근방법)
+- ActivityCompat 객체 사용
+  - 접근 권한이 있는지 없는지 체크 가능 : `checkSelfPermission()`
+    - 사용하려는 리소스에 대한 권한 종류를 일일이 확인
+    - 접근권한들은 Manifest 객체에 정의되어 있음
+    - PackageManager에서 permission이 허락되었는지 안되었는지 확인 가능(PERMISSION_GRANTED/PERMISSION_DENIED)
+      ```java
+      if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+
+      } else { // 없으면 물어보기(유저에게 요청 필요)
+        // 두 번째 argument로 어떤 퍼미션에 대한 요청을 할지 지정할 수 있음(String Array로 만듦!)
+        ActivityCompat.requestPermission(this, new String[]{Manifest.permission.CAMERA}, );
+        
+      }
+      ```
+  - 접근 권한이 있으면 권한 요청(팝업창) : `requestPermission()`
+    - 이에 대해 사용자가 Yes/No를 누르면 callback함수로 앱에 정보가 넘어옴 : `onRequestPermissionResult()`
