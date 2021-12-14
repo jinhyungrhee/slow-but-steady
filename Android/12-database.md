@@ -81,8 +81,8 @@
   - 내부 저장소
     - 하나의 앱에서 내부 저장소에 저장하면 자신의 패키지 안에 별도의 폴더를 생성해서 그곳에 파일 저장
     - 내부 저장소는 파일 이름만 주고 특정한 경로를 지정하지 않음
-    - openFileInput() 메서드를 통해 file을 open하면 바로 FileInputStream 객체를 통해 바로 input stream을 다운받을 수 있음
-    - 파일을 쓸 때는 opneFileOutput() 메서드 사용
+    - `openFileInput()` 메서드를 통해 file을 open하면 바로 FileInputStream 객체를 통해 바로 input stream을 다운받을 수 있음
+    - 파일을 쓸 때는 `openFileOutput()` 메서드 사용
   - 외부 저장소
     - ex) 사진을 찍으면 외부저장소의 DCIM 디렉토리에 사진이 저장됨
     - 해당 데이터를 공유할 수 있도록 공유 외부 저장소에 저장하는 것
@@ -90,8 +90,8 @@
 ## FILE I/O
 
 - Java는 어떤 데이타를 file에 읽고 쓰기 위해 특정 `FILE 객체`를 생성해야 함. 
-- FILE에 데이터를 쓸 때는 OutputStream 객체 사용 (FileOutputStream/ObjOutputStream/BufferedOutputStream 등)
-- FILE로부터 데이터를 읽을 때는 InputStream 객체 사용 (FileInputStream/ObjInputStream/BufferedInputStream 등)
+- FILE에 데이터를 쓸 때는 OutputStream 객체 사용 (`FileOutputStream`/`ObjOutputStream`/`BufferedOutputStream` 등)
+- FILE로부터 데이터를 읽을 때는 InputStream 객체 사용 (`FileInputStream`/`ObjInputStream`/`BufferedInputStream` 등)
 
 
 ## 내부 공간에 파일 만들기
@@ -108,11 +108,11 @@
 |--|--|
 |항상 사용 가능|항상 사용 가능하지 않음. 사용자가 SD카드를 제거하면 사용 불가|
 |이곳에 저장되는 파일은 해당되는 앱만 사용 가능|누구나 읽을 수 있음|
-|사용자가 앱을 제거하면 시스템에 의해 앱이 사용했던 공간이 삭제됨|사용자가 앱을 제거할 때 공용 디렉토리에 저장된 파일은 삭제되지 않음. 다만 getExternalFilesDir()가 반환하는 디렉털에 파일을 저장한 경우만 시스템이 삭제함|
+|사용자가 앱을 제거하면 시스템에 의해 앱이 사용했던 공간이 삭제됨|사용자가 앱을 제거할 때 공용 디렉토리에 저장된 파일은 삭제되지 않음. 다만 getExternalFilesDir()가 반환하는 디렉토리에 파일을 저장한 경우만 시스템이 삭제함|
 
 ## 외부 미디어 장착 여부 검사
 
-- mount가 되어 있으면 외부 장치가 파일 시스템 형태로 장착되어 있는 것임!
+- mount가 되어 있으면 외부 장치가 파일 시스템 형태로 장착되어 있는 것임! : `state.equals(Environment.MEDIA_MOUNTED)`
 
 ```java
 String state = Environment.getExternalStorageState();
