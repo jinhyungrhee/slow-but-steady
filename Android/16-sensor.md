@@ -64,9 +64,9 @@
 ## 방향(orientation) 센서
 - 현재 장치의 자세를 나타냄
 - 3개의 값 제공
-  - 방위각(azimuth) : z축
-  - 피치(pitch) : y축
-  - 롤(roll) : x축
+  - 방위각(azimuth) : z축 회전
+  - 피치(pitch) : y축 회전
+  - 롤(roll) : x축 회전
 - orientation은 값을 radian으로 표현
 - SDK버전이 업데이트되면서 deprecated됨!
   - 직접 가져오기보다는 `ACCELEROMETER`와 `MAGNETIC_FIELD` 두 개를 결합시켜 방향에 대한 값을 가져와야 함!(=> 더 정밀한 값)
