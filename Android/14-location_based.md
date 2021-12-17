@@ -44,8 +44,8 @@
 
 ## 사용자 위치 정보를 얻기 위한 두 가지 권한
 
-- android.Manifest.permission.ACCESS_FINE_LOCATION
-- android.Manifest.permission.ACCESS_COARSE_LOCATION
+- android.permission.ACCESS_FINE_LOCATION
+- android.permission.ACCESS_COARSE_LOCATION
 
 ## 구글 지도 v2
 
