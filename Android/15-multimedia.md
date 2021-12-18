@@ -48,7 +48,7 @@
 ## MediaPlayer State Diagram
 
 - 시작시키는 과정 
-  - → reset() → `Idle` → setDaataSource → `Initialized` → prepare() → `Prepared` → start() → `Started`
+  - → reset() → `Idle` → setDataSource → `Initialized` → prepare() → `Prepared` → start() → `Started`
 - 중지
   - 완전히 멈추기(stopped) : 재생 불가
     - → ... → `Started` → stop() → `Stopped`
@@ -62,7 +62,7 @@
 ## Multimedia의 encoding/decoding 작업
 
 - raw데이터가 들어오면 데이터를 압축해서 특정 데이터의 형식에 맞게 변형시키는 것 : `Encoding`
-- encoding으로 특정 format의 file이 생성되면 Library를 통해 device driver로 데이가 나가도록 하는 것 : `Decoding` 
+- encoding으로 특정 format의 file이 생성되면 Library를 통해 device driver로 데이터가 나가도록 하는 것 : `Decoding` 
 
 ## 안드로이드 지원 파일 형식
 
