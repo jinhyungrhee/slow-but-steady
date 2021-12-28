@@ -7,7 +7,7 @@
   - Template : `{{user}}`
 
 - View에서 확인하기
-  - views.py에서는 **reqeust.user**로 접근!
+  - views.py에서는 `reqeust.user`로 접근!
     ```py
     def index(request):
       print(request.user) # username 필드가 출력
@@ -24,7 +24,7 @@
     - `print(request.user.is_authenticated)`
 
 - Template에서 확인하기
-  - template에서는 **{{user}}**로 접근!
+  - template에서는 `{{user}}`로 접근!
   - allauth의 urls.py 참고하여 작성(https://github.com/pennersr/django-allauth/blob/master/allauth/account/urls.py)
   - template/index.html
     ```html
