@@ -7,7 +7,7 @@
 
 - `login_required` decorator (= LoginRequiredMixin과 유사)
   - 함수형 뷰에 직접 decorator 붙이기
-    - `login_required` decorator(=LoginRequiredMixin과 유사)사용
+    - login_required decorator 사용
       ```py
       # views.py
       from django.contrib.auth.decorators import login_required
