@@ -37,13 +37,13 @@
     ```py
     urlpatterns = [
       path('email-confirmation-done/',
-      TemplateView.as_view(template_name="coplate/email_confirmation_done.html"),
+      TemplateView.as_view(template_name="account/email_confirmation_done.html"),
       name="account_email_confirmation_done"), # 장고에서 단순 템플릿을 랜더링할 때 제네릭뷰(템플릿뷰) 사용! (뷰 자리에 템플릿 뷰 사용)
     ]
     ```
     - view에 따로 설정하지 않고 urls.py에서 바로 template view 적기 가능
   - 템플릿 생성
-    - template/coplate/email_confirmation_done.html
+    - template/account/email_confirmation_done.html
       ```html
       이메일 인증이 완료되었습니다.
       <!-- 유저가 로그인된 상태면 -->
