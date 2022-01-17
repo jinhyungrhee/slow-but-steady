@@ -46,9 +46,9 @@
           <section class="cp-card content">
             <div class="thumb" style="background-image: url('{{ review.image1.url }}');"></div> 
             <div class="body">
-              <span class="cp-chip green">{{ reveiw.restaurant_name }}</span>
+              <span class="cp-chip green">{{ review.restaurant_name }}</span>
               <h2 class="title">{{ review.title }}</h2>
-              <date class="date">{{ reveiw.dt_created|date:"Y년 n월 j일" }}</date>
+              <date class="date">{{ review.dt_created|date:"Y년 n월 j일" }}</date>
               <div class="metadata">
                 <div class="review-rating">
                   <span class="cp-stars">
