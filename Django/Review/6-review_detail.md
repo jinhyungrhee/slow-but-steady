@@ -27,7 +27,8 @@
           template_name = "coplate/review_detail.html"
           # 리뷰id로 사용되는 이름을 DetailView에 알려줌('pk_url_kwarg' 사용!)
           pk_url_kwarg = "review_id"
-          # object를 하나만 다루는 view에서는 'context_object_name'의 default값이 모델의 이름(=Review)이 됨! -> 작성 필요X
+          # object를 하나만 다루는 view에서는 'context_object_name'의 default값이 모델의 이름(=review)이 됨! -> 작성 필요X
+          # object를 여러 개 다루는 view에서는 'context_object_name'의 default값이 모델 이름 뒤에 '_list'가 붙은 형태가 됨!(=review_list) -> 작성 필요X
       ```
   
 - 홈페이지에서 리뷰 상세 페이지로 가는 링크 채우기
