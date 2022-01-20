@@ -119,7 +119,7 @@
         - URL : `/uploads/`
         - Directory : `/home/wayofseeing/coplate_project/media/`
 9. 배포 설정이 모두 완료되었으면, Web 탭 상단의 'Reload' 버튼 클릭
-  - 상단에 `Configuration for wayofseeing.pythonanywhere.com` 문구가 나타나면 웹 사이트 접속 가능
+    - 상단에 `Configuration for wayofseeing.pythonanywhere.com` 문구가 나타나면 웹 사이트 접속 가능
 
 
 ## 'WSGI' 정리
@@ -141,9 +141,9 @@
     - 정적 파일은 '바뀌지 않는 파일'이기 때문에 django가 따로 처리할 로직이 없음 (그냥 파일을 돌려주기만 하면 됨!)
 
 - '정적 파일'을 다루는 방법 : `웹 사이트를 개발할 때`와 `실제로 운영할 때`가 서로 다름!
-  - **웹 사이트를 개발할 때(=development 환경에서)** 사용되는 방법
+  - **① 웹 사이트를 개발할 때(=development 환경에서)** 사용되는 방법
     - html코드 안에 이미지의 URL을 넣어주면(`<img src="/static/coplate/codeit.png>`), django는 이 이미지 파일의 URL에 해당하는 이미지 파일을 찾아서 웹 브라우저에게 돌려줌!
-  - **실제로 운영할 때(=production 환경에서)** 사용되는 방법
+  - **② 실제로 운영할 때(=production 환경에서)** 사용되는 방법
     - 정적 파일에 대한 request가 들어오면(`/static/coplate/codeit.png`), 그 request를 django 어플리케이션으로 보내지 않고 웹 서버가 바로 정적 파일을 찾아서 클라이언트에게 response로 돌려줌 → **훨씬 효율적인 방법!**
 
 
