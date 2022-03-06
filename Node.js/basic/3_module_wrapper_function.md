@@ -181,7 +181,7 @@
     'C:\\codeit\\nodeStudy\\math-tools.js'
     __dirname -------------------------------------------->
     'C:\\codeit\\nodeStudy'
-    ``
+    ```
     - exports 객체에 'plus'라는 프로퍼티가 추가되고, 프로퍼티의 값이 'add 함수'로 설정됨
     - module 객체의 exports 프로퍼티도 동일한 객체를 가리킴(= 다른 모듈에 공개하고 싶은 것들이 모인 객체)
     - ⭐이 객체가 다른 모듈에서 require 함수로 로드할 때 리턴되는 객체임⭐
