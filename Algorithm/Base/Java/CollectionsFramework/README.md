@@ -116,4 +116,4 @@
 
 ## Reference
 
-- https://st-lab.tistory.com/142
+- Stranger's lab 블로그 - [자바 컬렉션 프레임워크](https://st-lab.tistory.com/142)
