@@ -37,7 +37,7 @@
 
 1. package-lock.json
 
-- dependencies : 디렉토리 안에 설치된 모든 서드파티 모듈에 관한 정보가 기록되어 있음 (-> 프로젝트가 의존하고 있는 써드파티 모듈들)
+- dependencies : 현재 작업 디렉토리 안에 설치된 서드파티 모듈에 관한 정보가 기록되어 있음 (-> 프로젝트가 의존하고 있는 써드파티 모듈들)
 - requires : 해당 모듈(써드파티 모듈)이 의존하는 다른 써드파티 모듈들의 이름이 적혀 있음.
 - `다단계 의존 관계`
   - 예시) cowsay -> string-width -> strip-ansi -> ansi-regex 모듈
